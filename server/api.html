@@ -1,0 +1,961 @@
+<!doctype html>
+
+<script type="text/javascript">if (location.protocol !=='https:') location.replace(`https:${location.href.substring(location.protocol.length)}`);</script>
+	
+<html lang="en">
+
+<head>
+	<title>INNOMATI | API Documentation</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="api_assets/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="api_assets/vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="api_assets/vendor/linearicons/style.css">
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" href="api_assets/css/main.css">
+	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+	<link rel="stylesheet" href="api_assets/css/demo.css">
+	<!-- GOOGLE FONTS -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"> -->
+	<link href="api_assets/scripts/google_font.css" rel="stylesheet">
+	<!-- ICONS -->
+	<link rel="icon" type="image/png" sizes="96x96" href="api_assets/icon_square.png">
+<!-- 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+	<!-- country flag -->
+	<link href="api_assets/scripts/flag-icon.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<!-- WRAPPER -->
+	<div id="wrapper">
+
+		<!-- LEFT SIDEBAR -->
+		<div id="sidebar-nav" class="sidebar" style="padding:0px;">
+
+			<span id="headerTitle" style="height: 50px; line-height: 50px; font-size: 17px; float: left; color: white; border-bottom: 2px solid red; width: 100%; padding-left: 10px;">INNOMATI</span>
+
+			<img src="api_assets/icon_square.png" alt="Klorofil Logo" class="img-responsive logo" width="1" height="1" style="">
+
+			<div id="menuBar" class="sidenavMenu">
+				<a id="navTitle1" href="#0">Introduction</a>
+
+				<a id="navTitle1" href="#1" class="dropdown-btn-menu">First Step: Get Host</a>
+				<div class="dropdown-container-menu" style="display: block;">
+					<a id="navTitle2Section0" href="#2">Camera & Control Host</a>
+				</div>
+
+				<a id="navTitle1" href="#3" class="dropdown-btn-menu">Second Step: Live Streaming & Real-Time Controlling</a>
+				<div class="dropdown-container-menu" style="display: block;">
+					<a id="navTitle2Section1" href="#4">Manual Control</a>
+					<a id="navTitle2Section2" href="#5">Auto Control</a>
+					<a id="navTitle2Section3" href="#6">Power & Angle Setting</a>
+					<a id="navTitle2Section4" href="#7">Device Data</a>
+					<a id="navTitle2Section5" href="#8">Auto Control Callback</a>
+				</div>
+			</div>
+
+		</div>
+		<!-- END LEFT SIDEBAR -->
+
+		<!-- MAIN -->
+		<div class="main" style="padding-top: 0px;">
+
+			<div style="height: 50px; background: #FAFAFB; width: 100%; border-bottom: 2px solid red;">
+				
+				<div class="navbar-btn" style="margin: 0px; padding: 10px;">
+					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+				</div>
+
+				<span id="headerTitle" style="height: 50px; line-height: 50px; font-size: 17px; float: left;">API Documentation</span>
+
+<!-- 				<div style="line-height: 50px;">
+		            <a href="#" onclick="selectLanguageOf('hant')"><span class="flag-icon flag-icon-hk language"> </span></a>
+		            <a href="#" onclick="selectLanguageOf('hans')"><span class="flag-icon flag-icon-cn language"> </span></a>
+		            <a href="#" onclick="selectLanguageOf('en')"><span class="flag-icon flag-icon-us language"> </span></a>
+				</div> -->
+
+			</div>
+			
+			<div style="clear:both;"></div>
+
+			<div style="height: calc(100vh - 50px); overflow: auto;">
+
+				<!-- MAIN CONTENT -->
+				<div class="main-content anchor">
+					<span id="0"></span>
+					<div class="container-fluid">
+						<h3 id="introTitle" class="page-title">Introduction of INNOMATI's API documentation</h3>
+						<h4 id="introDetail" class="page-title">INNOMATI API is powerful tool to control your device with no range limitation. Two steps are required to connect your device. First step is to get the hosts for live streaming and real-time controlling. It can either be obtained by HTTP request or in <a href="./live.html">Device Panel</a>. Second step is to connect and control your device by websocket. If you have any questions, please send us an email at tech@innomati.com.</h4>
+
+
+					</div>
+				</div>
+				<!-- END MAIN CONTENT -->
+
+				<hr>
+
+				<!-- MAIN CONTENT -->
+				<div class="main-content anchor">
+					<span id="1"></span>
+					<div class="container-fluid">
+						<h3 id="introTitleee" class="page-title">First Step: Get Host</h3>
+						<h4 id="introTitleeej" class="page-title">Endpoint for HTTP request is https://innomati.com/API.php. Below is the request format. Noted that server reads and returns JSON string.</h4>
+					
+						<div class="row">
+							<div class="col-md-7">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="introRequest" class="panel-title">Request</h3>
+									</div>
+									<div class="panel-body">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th id="introParameter">Parameter</th>
+													<th id="introType">Type</th>
+													<th>#</th>
+													<th id="introDescription">Description</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><code>action</code></td>
+													<td>String</td>
+													<td id="introSelection3">Required</td>
+													<td id="introDescription3">Action to execute (See below)</td>
+												</tr>
+												<tr>
+													<td><code>data</code></td>
+													<td>Array</td>
+													<td id="introSelection4">Required</td>
+													<td id="introDescription4">Support data for the action (See below)</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+							<div class="col-md-5">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="introSampleRequest" class="panel-title">Sample Request & Response (Javascript)</h3>
+									</div>
+									<div class="panel-body">
+									<pre>var xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == XMLHttpRequest.DONE && xhr.status === 200) {
+        response = JSON.parse(xhr.responseText);
+        ...
+    }
+}
+xhr.open("POST", ENDPOINT, true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send(JSON.stringify({action: "ACTION", data: {...}}));</pre>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+						</div>
+					</div>
+
+					<div style="padding: 0px 30px 0px 30px; margin-top:-30px;">
+						<h4 id="introSuccessResponse" class="page-title">Explanation of Response</h4>
+
+						<div class="panel-body">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Key</th>
+										<th>Value</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>success</code></td>
+										<td id="introSuccessResponseParaDesc1">Boolean - Tells whether our server accepts the request</td>
+									</tr>
+									<tr>
+										<td><code>error</code></td>
+										<td id="introSuccessResponseParaDesc2">Array - Shows error <code>code</code> and <code>message</code> if <code>success</code> is False</td>
+									</tr>
+									<tr>
+										<td><code>data</code></td>
+										<td id="introSuccessResponseParaDesc3">Array - Shows corresponding data if <code>success</code> is True</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="main-content anchor">
+					<span id="2"></span>
+					<div class="container-fluid">
+						<h3 class="page-title"><code>action</code>: <code>get_device_host</code></h3>
+						<h4 id="action0Title" class="page-title">This action is used to obtain device's hosts for live streaming and real-time controlling.</h4>
+						<div class="row">
+							<div class="col-md-7">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-body">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th id="action0Parameter">Parameter</th>
+													<th id="action0Type">Type</th>
+													<th>#</th>
+													<th id="action0Description">Description</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><code>device_id</code></td>
+													<td>String</td>
+													<td id="action0Selection1">Required</td>
+													<td id="action0Description1">An unique ID of the device</td>
+												</tr>
+												<tr>
+													<td><code>device_api_key</code></td>
+													<td>String</td>
+													<td id="introSelection2">Required</td>
+													<td id="introDescription2">An key assoicated with the device</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+							<div class="col-md-5">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="action0Response" class="panel-title">Response</h3>
+									</div>
+									<div class="panel-body">
+									<pre>{
+    "success": true,
+    "data": {
+        "camera_host": {
+            "hostname": "3G9E.camera.us.innomati.com",
+            "port": "8080"
+        },
+        "control_host": {
+            "hostname": "KR4D.control.us.innomati.com",
+            "port": "8443"
+        },
+    }
+}</pre>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+						</div>
+					</div>
+
+					<div style="padding: 0px 30px 0px 30px; margin-top:-30px;">
+						<h4 id="introSuccessResponse" class="page-title">Explanation of <code>data</code> parameter</h4>
+
+						<div class="panel-body">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Key</th>
+										<th>Value</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>camera_host</code></td>
+										<td id="introSuccessResponseParaDesc1">Array - Contains camera websocket data of <code>hostname</code> and <code>port</code></td>
+									</tr>
+									<tr>
+										<td><code>control_host</code></td>
+										<td id="introSuccessResponseParaDesc2">Array - Contains control websocket data of <code>hostname</code> and <code>port</code></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- END MAIN CONTENT -->
+
+				<hr>
+
+				<!-- MAIN CONTENT -->
+				<div class="main-content anchor">
+					<span id="3"></span>
+					<div class="container-fluid">
+						<h3 id="introTitleee" class="page-title">Second Step: Live Streaming & Real-Time Controlling</h3>
+						<h4 id="introTitleeej" class="page-title">Connect the hosts using websockets for live streaming (<code>camera_host</code>) and real-time controlling (<code>control_host</code>). Below is the request format.</h4>
+					
+						<h4 class="page-title"><u>Live Streaming - The camera host transfer data in h.264 format.</u></h4>
+						<div class="row">
+							<div class="col-md-12">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="introSampleRequest" class="panel-title">Sample Connection (Javascript)</h3>
+									</div>
+									<div class="panel-body">
+									<pre>// https://github.com/131/h264-live-player
+
+var cameraCanvas = document.getElementById("cameraCanvas")
+var wsavc = new WSAvcPlayer(cameraCanvas, "webgl");
+var url = "wss://" + CAMERA_HOST["hostname"];
+url = CAMERA_HOST["port"] == null ? url : url + ":" + CAMERA_HOST["port"];
+wsavc.connect(url + "/");</pre>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+						</div>
+
+						<h4 class="page-title"><u>Real-Time Controlling - The device reads and returns JSON string.</u></h4>
+						<div class="row">
+							<div class="col-md-7">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="introRequest" class="panel-title">Request</h3>
+									</div>
+									<div class="panel-body">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th id="introParameter">Parameter</th>
+													<th id="introType">Type</th>
+													<th>#</th>
+													<th id="introDescription">Description</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><code>action</code></td>
+													<td>String</td>
+													<td id="introSelection3">Required</td>
+													<td id="introDescription3">Action to execute (See below)</td>
+												</tr>
+												<tr>
+													<td><code>data</code></td>
+													<td>Array</td>
+													<td id="introSelection4">Required</td>
+													<td id="introDescription4">Support data for the action (See below)</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+							<div class="col-md-5">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="introSampleRequest" class="panel-title">Sample Request & Response (Javascript)</h3>
+									</div>
+									<div class="panel-body">
+									<pre>var url = "wss://" + CONTROL_HOST["hostname"];
+url = CONTROL_HOST["port"] == null ? url : url + ":" + CONTROL_HOST["port"];
+websocket = new WebSocket(url);
+websocket.onopen = function (msg) {
+    websocket.send(JSON.stringify({"action": ACTION, "data": DATA}));
+};
+websocket.onmessage = function (event) {
+    var request = JSON.parse(event.data);
+    var response = request["response"];
+    var data = response["data"];
+    ...
+};</pre>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+						</div>
+
+					</div>
+
+
+					<div style="padding: 0px 30px 0px 30px; margin-top:-30px;">
+						<div class="panel-body">
+							<h4 id="action1Explanation" class="page-title">Explanation of Response</h4>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Key</th>
+										<th>Value</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>action</code></td>
+										<td id="introSuccessResponseParaDesc1">String - Same as the request's <code>action</code></td>
+									</tr>
+									<tr>
+										<td><code>data</code></td>
+										<td id="introSuccessResponseParaDesc2">Array - Same as the request's <code>data</code></td>
+									</tr>
+									<tr>
+										<td><code>response</code></td>
+										<td id="introSuccessResponseParaDesc3">Array - Response according to request</td>
+
+									</tr>
+								</tbody>
+							</table>
+							<h4 id="action1Explanation" class="page-title">Explanation of <code>response</code> parameter</h4>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Key</th>
+										<th>Value</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>success</code></td>
+										<td id="introSuccessResponseParaDesc1">Boolean - Tells whether our server accepts the request</td>
+									</tr>
+									<tr>
+										<td><code>error</code></td>
+										<td id="introSuccessResponseParaDesc2">Array - Shows error <code>code</code> and <code>message</code> if <code>success</code> is False</td>
+									</tr>
+									<tr>
+										<td><code>data</code></td>
+										<td id="introSuccessResponseParaDesc3">Array - Shows corresponding data if <code>success</code> is True</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="main-content anchor">
+					<span id="4"></span>
+					<div class="container-fluid">
+						<h3 class="page-title"><code>action</code>: <code>control</code></h3>
+						<h4 id="action0Title" class="page-title">This action is used to control the device manually.</h4>
+						<div class="row">
+							<div class="col-md-7">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-body">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th id="action0Parameter">Parameter</th>
+													<th id="action0Type">Type</th>
+													<th>#</th>
+													<th id="action0Description">Description</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><code>angle</code></td>
+													<td>Double</td>
+													<td id="action0Selection1">Required</td>
+													<td id="action0Description1">A number from -1 to 1 with two decimal places</td>
+												</tr>
+												<tr>
+													<td><code>power</code></td>
+													<td>Double</td>
+													<td id="introSelection2">Required</td>
+													<td id="introDescription2">A number from -1 to 1 with two decimal places</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+							<div class="col-md-5">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="action0Response" class="panel-title">Response</h3>
+									</div>
+									<div class="panel-body">
+									<pre>{
+    "success": true
+}</pre>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="main-content anchor">
+					<span id="5"></span>
+					<div class="container-fluid">
+						<h3 class="page-title"><code>action</code>: <code>control_auto</code></h3>
+						<h4 id="action0Title" class="page-title">This action is used to control the device automatically with assigned coordinates.</h4>
+						<div class="row">
+							<div class="col-md-7">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-body">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th id="action0Parameter">Parameter</th>
+													<th id="action0Type">Type</th>
+													<th>#</th>
+													<th id="action0Description">Description</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><code>on</code></td>
+													<td>String</td>
+													<td id="action0Selection1">Required</td>
+													<td id="action0Description1">Start / stop the automation</td>
+												</tr>
+												<tr>
+													<td><code>coordinates</code></td>
+													<td>Array</td>
+													<td id="introSelection2">Required if <code>on</code> is True</td>
+													<td id="introDescription2">A list with coordinates in following format - [(Latitude, Longitude), (Latitude, Longitude), ...]</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+							<div class="col-md-5">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="action0Response" class="panel-title">Response</h3>
+									</div>
+									<div class="panel-body">
+									<pre>{
+    "success": true
+}</pre>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="main-content anchor">
+					<span id="6"></span>
+					<div class="container-fluid">
+						<h3 class="page-title"><code>action</code>: <code>power_angle_setting</code></h3>
+						<h4 id="action0Title" class="page-title">This action is used to control the device automatically with assigned coordinates.</h4>
+						<div class="row">
+							<div class="col-md-7">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-body">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th id="action0Parameter">Parameter</th>
+													<th id="action0Type">Type</th>
+													<th>#</th>
+													<th id="action0Description">Description</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><code>min_power</code></td>
+													<td>Double</td>
+													<td id="action0Selection1">Required</td>
+													<td id="action0Description1">A number from 0 to 0.99 to set minimum <code>power</code></td>
+												</tr>
+												<tr>
+													<td><code>max_power</code></td>
+													<td>Double</td>
+													<td id="action0Selection1">Required</td>
+													<td id="action0Description1">A number from 0.01 to 1 to set maximum <code>power</code></td>
+												</tr>
+												<tr>
+													<td><code>calibration_angle</code></td>
+													<td>Integer</td>
+													<td id="action0Selection1">Required</td>
+													<td id="action0Description1">A number from -45 to 45 to calibrate straight angle</td>
+												</tr>
+												<tr>
+													<td><code>is_opposite_angle</code></td>
+													<td>Boolean</td>
+													<td id="introSelection2">Required</td>
+													<td id="introDescription2">Reverse angle</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+							<div class="col-md-5">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="action0Response" class="panel-title">Response</h3>
+									</div>
+									<div class="panel-body">
+									<pre>{
+    "success": true
+}</pre>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="main-content anchor">
+					<span id="7"></span>
+					<div class="container-fluid">
+						<h3 class="page-title"><code>action</code>: <code>device_data</code> (Callback once Connected)</h3>
+						<h4 id="action0Title" class="page-title">This action can be automatically received for device's latest data.</h4>
+						<div class="row">
+							<div class="col-md-12">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="action0Response" class="panel-title">Response</h3>
+									</div>
+									<div class="panel-body">
+									<pre>{
+    "sensor_data": {
+        "pitch_accl": 0, 
+        "roll_accl": 0, 
+        "yaw_accl": 0, 
+        "pitch_gyro": 0, 
+        "roll_gyro": 0, 
+        "yaw_gyro": 0, 
+        "pitch": 10, 
+        "roll": 1, 
+        "yaw": 315,
+        "lat": 37.420318, 
+        "lon": -122.031711,
+        "alt": 2.3,
+        "H_speed": 0,
+        "time": "2022-04-19T18:24:29.842087UTC",
+        "battery_info": {
+            "voltage": {
+                "amount": 12.3, 
+                "unit": "V"
+            },
+            "current": {
+                "amount": 212, 
+                "unit": "mA"
+            },
+            "power": {
+                "amount": 2608, 
+                "unit": "mW"
+            },
+            "shunt_voltage": {
+                "amount": 0, 
+                "unit": "mV"
+            },
+            "battery_level": {
+                "amount": 60, 
+                "unit": "%"
+            }
+        }
+    }, 
+    "control_data": {
+        "power": 0.4, 
+        "min_power": 0.2,
+        "max_power": 0.6,
+        "power_in_percentage": 0.36,
+        "angle": 0, 
+        "calibration_angle": 30,
+        "is_opposite_angle": false,
+        "autoSailing": {
+            "on": false
+        }
+    },
+    "viewers": 2
+}</pre>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+						</div>
+					</div>
+
+					<div style="padding: 0px 30px 0px 30px; margin-top:-30px;">
+						<h4 id="introSuccessResponse" class="page-title">Explanation of <code>data</code> parameter</h4>
+
+						<div class="panel-body">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Key</th>
+										<th>Value</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>pitch_accl</code></td>
+										<td id="introSuccessResponseParaDesc1">Pitch acceleration (linear)</td>
+									</tr>
+									<tr>
+										<td><code>roll_accl</code></td>
+										<td id="introSuccessResponseParaDesc2">Roll acceleration (linear)</td>
+									</tr>
+									<tr>
+										<td><code>yaw_accl</code></td>
+										<td id="introSuccessResponseParaDesc1">Yaw acceleration (linear)</td>
+									</tr>
+									<tr>
+										<td><code>pitch_gyro</code></td>
+										<td id="introSuccessResponseParaDesc2">Pitch velocity (angular)</td>
+									</tr>
+									<tr>
+										<td><code>roll_gyro</code></td>
+										<td id="introSuccessResponseParaDesc1">Roll velocity (angular)</td>
+									</tr>
+									<tr>
+										<td><code>yaw_gyro</code></td>
+										<td id="introSuccessResponseParaDesc2">Yaw velocity (angular)</td>
+									</tr>
+									<tr>
+										<td><code>pitch</code></td>
+										<td id="introSuccessResponseParaDesc1">Current pitch</td>
+									</tr>
+									<tr>
+										<td><code>roll</code></td>
+										<td id="introSuccessResponseParaDesc2">Current roll</td>
+									</tr>
+									<tr>
+										<td><code>yaw</code></td>
+										<td id="introSuccessResponseParaDesc1">Current yaw</td>
+									</tr>
+									<tr>
+										<td><code>lat</code></td>
+										<td id="introSuccessResponseParaDesc2">Latitude (DMS format)</td>
+									</tr>
+									<tr>
+										<td><code>lon</code></td>
+										<td id="introSuccessResponseParaDesc1">Longitude (DMS format)</td>
+									</tr>
+									<tr>
+										<td><code>alt</code></td>
+										<td id="introSuccessResponseParaDesc2">Altitude</td>
+									</tr>
+									<tr>
+										<td><code>H_speed</code></td>
+										<td id="introSuccessResponseParaDesc2">Horizontal Speed</td>
+									</tr>
+									<tr>
+										<td><code>time</code></td>
+										<td id="introSuccessResponseParaDesc2">Sensor Update Time</td>
+									</tr>
+									<tr>
+										<td><code>voltage</code></td>
+										<td id="introSuccessResponseParaDesc2">Current voltage in V</td>
+									</tr>
+									<tr>
+										<td><code>current</code></td>
+										<td id="introSuccessResponseParaDesc2">Current current in mA</td>
+									</tr>
+									<tr>
+										<td><code>power</code></td>
+										<td id="introSuccessResponseParaDesc2">Current power in mW</td>
+									</tr>
+									<tr>
+										<td><code>shunt_voltage</code></td>
+										<td id="introSuccessResponseParaDesc2">Current shunt voltage in mV</td>
+									</tr>
+									<tr>
+										<td><code>battery_level</code></td>
+										<td id="introSuccessResponseParaDesc2">Current battery level in %</td>
+									</tr>
+									<tr>
+										<td><code>viewers</code></td>
+										<td id="introSuccessResponseParaDesc2">Number of viewers connected to the control host</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="main-content anchor">
+					<span id="8"></span>
+					<div class="container-fluid">
+						<h3 class="page-title"><code>action</code>: <code>control_auto_completed</code> (Callback once Auto Control Completed)</h3>
+						<h4 id="action0Title" class="page-title">This action can be automatically received once <code>control_auto</code> is completed.</h4>
+						<div class="row">
+							<div class="col-md-12">
+								<!-- TABLE HOVER -->
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 id="action0Response" class="panel-title">Response</h3>
+									</div>
+									<div class="panel-body">
+									<pre>{
+    "success": true
+}</pre>
+									</div>
+								</div>
+								<!-- END TABLE HOVER -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END MAIN CONTENT -->
+
+
+			</div>
+		</div>
+	</div>
+	<!-- END WRAPPER -->
+	<!-- Javascript -->
+	<script src="api_assets/vendor/jquery/jquery.min.js"></script>
+	<script src="api_assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="api_assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="api_assets/scripts/klorofil-common.js"></script>
+
+	<style type="text/css">
+		
+		.anchor{ position:relative; }
+		.anchor span{ position:absolute; top:-15px;}
+
+		hr {
+		    border: none;
+		    height: 5px;
+		    color: #EFEFF4; /* old IE */
+		    background-color: #EFEFF4; /* Modern Browsers */
+		}
+
+		.language {
+			margin-left: 10px;
+		}
+
+	</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+
+		// var language = "en";
+
+	 //    var params_list = window.location.search.substring(1).split("&");
+		// var params = {};
+		// for (var i = 0; i < params_list.length; i++) { 
+		//   var param = params_list[i].split("=");
+		//   params[param[0]] = param[1];
+		// }
+		// var urlLanguage = params["lang"];
+		// if (urlLanguage == "hant" || urlLanguage == "hans" || urlLanguage == "en") {
+		// 	language = urlLanguage;
+		// }
+
+	 //    function getLocalized(word) {
+		//     if (language == "hant") {
+		//         return word in hantDict ? hantDict[word] : "";
+		//     } else if (language == "hans") {
+		//         return word in hansDict ? hansDict[word] : "";
+		//     }
+		//     return word in enDict ? enDict[word] : word;
+		// }
+		
+		// function selectLanguageOf(lang) {
+		// 	if (language != lang) {
+	 //        	language = lang;
+	 //        	loadText();
+  //       	}
+		// }
+
+		// var enDict      = { };
+
+	 //    var hantDict    = { };
+
+	 //    var hansDict    = { };
+
+		// function loadText() {
+		// 	// document.title = getLocalized("title");    
+		// }
+  //   	loadText();
+
+		$( '#menuBar' ).on( 'mousewheel DOMMouseScroll', function ( e ) {
+		    var e0 = e.originalEvent,
+		        delta = e0.wheelDelta || -e0.detail;
+
+		    this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+		    e.preventDefault();
+		});
+
+	</script>
+
+	<style>
+		/*body {
+		  font-family: "FontAwesome", sans-serif;
+		}*/
+
+		/* Fixed sidenav, full height */
+		.sidenavMenu {
+			height: calc(100% - 150px);
+			overflow-x: hidden;
+		/*  height: 100%;
+		  width: 200px;
+		  position: fixed;
+		  z-index: 1;
+		  top: 0;
+		  left: 0;
+		  background-color: #111;
+		  overflow-x: hidden;
+		  padding-top: 0px;*/
+		}
+
+		/* Style the sidenav links and the dropdown button */
+		.sidenavMenu a, .dropdown-btn-menu {
+		  padding: 6px 8px 6px 16px;
+		  text-decoration: none;
+		  font-size: 15px;
+		  color: #818181;
+		  display: block;
+		  border: none;
+		  background: none;
+		  width: 100%;
+		  text-align: left;
+		  cursor: pointer;
+		  outline: none;
+		}
+
+		/* On mouse-over */
+		.sidenavMenu a:hover, .dropdown-btn-menu:hover {
+		  color: #f1f1f1;
+		}
+
+		/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+		.dropdown-container-menu {
+		  display: none;
+		  background-color: #262626;
+		  padding-left: 8px;
+		}
+
+		/* Optional: Style the caret down icon */
+		.fa-caret-down {
+		  float: right;
+		  padding-right: 8px;
+		}
+
+		/* Some media queries for responsiveness */
+		@media screen and (max-height: 450px) {
+		  .sidenavMenu {padding-top: 15px;}
+		  .sidenavMenu a {font-size: 18px;}
+		}
+	</style>
+
+</body>
+
+</html>

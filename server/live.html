@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+
+<script type="text/javascript">if (location.protocol !=='https:') location.replace(`https:${location.href.substring(location.protocol.length)}`);</script>
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Live</title>
+    <script type="text/javascript" src="./src/http-live-player.js"></script>
+    <link rel="stylesheet" href="./src/bootstrap.min.css">
+</head>
+<body>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            touch-action: none;
+        } 
+
+        html, body {
+            margin: 0; 
+            height: 100%; 
+            overflow: hidden;
+            overflow: scroll;
+            -webkit-overflow-scrolling: touch;
+
+            -webkit-touch-callout:none;
+            -webkit-user-select:none;
+            -khtml-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+        }
+    </style>
+    <script type="text/javascript">
+        document.ontouchmove = function(event){
+            event.preventDefault();
+        }
+    </script>
+
+    <!-- //////////////////////////// -->
+    <!-- // Camera START // -->
+    <!-- //////////////////////////// -->
+    <canvas id="cameraCanvas"></canvas>
+    <style type="text/css">
+        #cameraCanvas {
+            position: fixed;
+            object-fit: cover;  
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: #EFEFF4;
+        }
+    </style>
+    <!-- //////////////////////////// -->
+    <!-- // Camera END // -->
+    <!-- //////////////////////////// -->
+
+    <!-- //////////////////////////// -->
+    <!-- // Info START // -->
+    <!-- //////////////////////////// -->
+    <div id="infoDiv" style="position: absolute; top: 7.5px; left: 108px; color: white;">
+        <span id="users"></span>ö&nbsp;
+        <span id="h_speed"></span>&nbsp;
+        <span id="latency"></span>&nbsp;
+        <span id="battery_level"></span>&nbsp;
+    </div>
+    <!-- //////////////////////////// -->
+    <!-- // Info END // -->
+    <!-- //////////////////////////// -->
+
+    <!-- //////////////////////////// -->
+    <!-- // Control - Motion START // -->
+    <!-- //////////////////////////// -->
+    <script src="./src/three.min.js"></script>
+    <script src="./src/Gimbal.js"></script>
+    <img src="./src/setting.png" class="settingBtn" style="left: 30px;" onclick="settingButtonClicked();">
+    <img id="swapControlButton" class="settingBtn" src="./src/control.png" style="left: 65px;" onclick="swapControlClicked();">
+    <img id="recalibrateButton" src="./src/calibrate.png" style="position: absolute; background: white; left: 30px; opacity: 0.75; cursor: pointer; bottom: 30px; width: 60px; height: 60px; border-radius: 30px; display: none;" onclick="recalibrateBtnClick();">
+    <label id="pedalDiv" class="switch" style="display: none;">
+        <input id="pedalStatus" type="checkbox" checked onchange="directionButtonClicked();">
+        <div id="sliderName" class="slider round" direction-attr-name="D"></div>
+    </label>
+    <img id="pedalButton" src="./src/pedal.png" style="position: absolute; background: lightgray; right: 30px; opacity: 0.75; cursor: pointer; bottom: 30px; width: 90px; height: 90px; border-radius: 5px; display: none;" draggable="false">
+    <style type="text/css">
+        .settingBtn {
+            position: absolute;
+            background: white; 
+            opacity: 0.5; 
+            cursor: pointer; 
+            opacity: 0.75; 
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            top: 5px;
+        }
+    </style>
+    <style type="text/css">
+        .switch {
+            position: absolute;
+            display: inline-block;
+            width: 90px;
+            height: 34px;
+            right: 30px;
+            bottom: 125px;
+        }
+
+        .switch input {display:none;}
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ca2222;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        .switch input:checked + .slider {
+            background-color: #2ab934;
+        }
+
+        .switch input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        .switch input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(55px);
+        }
+
+        .slider:after {
+            content:attr(direction-attr-name);
+            color: white;
+            display: block;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            font-size: 10px;
+            font-family: Verdana, sans-serif;
+        }
+    </style>
+    <!-- //////////////////////////// -->
+    <!-- Control - Motion END -->
+    <!-- //////////////////////////// -->
+
+    <!-- //////////////////////////// -->
+    <!-- Map START -->
+    <!-- //////////////////////////// -->
+    <div id="mapCover" class="mapCoverCircle">
+        <div id="map" class="mapCircle"></div>
+        <img id="mapCenter" src="./src/center.png" style="cursor: pointer; display: none;" onclick="mapMoveToCenterClicked();">
+    </div>
+    <style>
+        .mapCoverCircle {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            margin-top: 5px;
+            margin-right: 5px;
+            width: 200px;
+            height: 200px;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            -khtml-border-radius: 50%;
+            display: inline-block;
+        }
+        .mapCircle {
+            width: 200px;
+            height: 200px;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            -khtml-border-radius: 50%;
+            vertical-align: middle;
+            -webkit-mask-box-image: url(./src/mask.png);
+        }
+        .mapCoverFullScreen {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 997;
+        }
+        .mapFullScreen {
+            width: 100%;
+            height: 100%;
+            z-index: 997;
+        }
+        #mapCenter {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: lightgray;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            display: inline-block;
+            -khtml-border-radius: 50%;
+        }
+    </style>
+    <!-- //////////////////////////// -->
+    <!-- Map END -->
+    <!-- //////////////////////////// -->
+
+    <!-- //////////////////////////// -->
+    <!-- Auto Sailing START -->
+    <!-- //////////////////////////// -->
+    <div id="mapFullScreenDiv" style="margin: 0 auto; bottom: 0px; display: none; width: 100%; text-align: center; position: absolute; z-index: 998;">
+        <button id="fullScreenStartBtn" class="btn-primary autoSailingBtn" onclick="autoSailingStartClicked();" style="min-width: 80px; cursor: pointer; z-index: 998;"></button>
+        <button id="fullScreenCloseBtn" class="btn-secondary autoSailingBtn" onclick="autoSailingCloseClicked();" style="margin-left: 10px; min-width: 80px; cursor: pointer; z-index: 998;"></button>
+        <div id="fullScreenInfo" style="background: orange; color: white; margin-top: 5px;"></div>
+        <div id="fullScreenMessage" style="background: rgba(0,0,0,0.5); color: white; margin-bottom: 30px;"></div>
+    </div>
+
+    <div style="position: absolute; bottom: 10px; margin: 0 auto; width: 300px; left: 0px; right: 0px; text-align: center;">
+        <button id="autoSailingBtn" class="btn-primary autoSailingBtn" style="margin-bottom: 5px; cursor: pointer; margin: 0 auto;" onclick="autoSailingBtnClicked();"></button>
+        <p id="rotate-angle" style="color: white; background: transparent; transition: background .5s; text-align: center; border-radius: 10px;"></p>
+    </div>
+    <!-- //////////////////////////// -->
+    <!-- Auto Sailing END -->
+    <!-- //////////////////////////// -->
+
+    <!-- //////////////////////////// -->
+    <!-- Control - Wheel Start -->
+    <!-- //////////////////////////// -->
+    <div id="speedDiv">
+        
+        <button class="btn-success speedBtn" onclick="speedButtonClicked(5);">5</button><br>
+        <button class="btn-success speedBtn" onclick="speedButtonClicked(4);">4</button><br>
+        <button class="btn-success speedBtn" onclick="speedButtonClicked(3);">3</button><br>
+        <button class="btn-success speedBtn" onclick="speedButtonClicked(2);">2</button><br>
+        <button class="btn-success speedBtn" onclick="speedButtonClicked(1);">1</button><br>
+        <button class="btn-light speedBtn" onclick="speedButtonClicked(0);">0</button><br>
+        <button class="btn-danger speedBtn" onclick="speedButtonClicked(-1);">-1</button><br>
+        <button class="btn-danger speedBtn" onclick="speedButtonClicked(-2);">-2</button><br>
+        <button class="btn-danger speedBtn" onclick="speedButtonClicked(-3);">-3</button><br>
+        <style type="text/css">
+            #speedDiv {
+                position: absolute;
+                bottom: 30px;
+                left: 30px;
+            }
+            .speedBtn {
+                width: 80px;
+                height: 35px;
+                margin-top: 5.5px;
+                border-radius: 10px;
+                border-color: transparent;
+                border-width: 5px;
+                cursor: pointer;
+            }
+            .btn-success {
+                color:#fff;
+                background-color:#218838;
+                border-color:#1e7e34
+            }
+            .btn-danger {
+                color:#fff;
+                background-color:#c82333;
+                border-color:#bd2130
+            }
+            .btn-light {
+                color:#212529;
+                background-color:#e2e6ea;
+                border-color:#dae0e5
+            }
+        </style>
+
+        <input id="powerInput" type="range" name="quantity" min="-3" max="5" value="0" style="width: 340px !important;" onchange="powerDidChange();" oninput="powerOnChange();">
+        <style type="text/css">
+            input[type="range"] {
+               position: absolute;
+               bottom: 175px;
+               left: -70px;
+               transform: rotate(270deg);
+               background: transparent;
+              -webkit-appearance: none;
+            }
+/*            input[type=range] {
+              margin: 18px 0;
+              width: 100%;
+            }*/
+            input[type=range]:focus {
+              outline: none;
+            }
+            input[type=range]::-webkit-slider-runnable-track {
+              width: 100%;
+              height: 8.4px;
+              cursor: pointer;
+              /*box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;*/
+              background: lightgray;
+            /*  border-radius: 1.3px;
+              border: 0.2px solid #010101;*/
+            }
+            input[type=range]::-webkit-slider-thumb {
+              box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+              border: 1px solid #000000;
+              height: 36px;
+              width: 16px;
+              border-radius: 3px;
+              background: #3071a9;
+              cursor: pointer;
+              -webkit-appearance: none;
+              margin-top: -14px;
+            }
+            input[type=range]:focus::-webkit-slider-runnable-track {
+              background: lightgray;
+            }
+            input[type=range]::-moz-range-track {
+              width: 100%;
+              height: 8.4px;
+              cursor: pointer;
+              /*box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;*/
+              background: lightgray;
+            /*  border-radius: 1.3px;
+              border: 0.2px solid #010101;*/
+            }
+            input[type=range]::-moz-range-thumb {
+              box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+              border: 1px solid #000000;
+              height: 36px;
+              width: 16px;
+              border-radius: 3px;
+              background: #3071a9;
+              cursor: pointer;
+            }
+            input[type=range]::-ms-track {
+              width: 100%;
+              height: 8.4px;
+              cursor: pointer;
+              background: transparent;
+              border-color: transparent;
+              border-width: 16px 0;
+              color: transparent;
+            }
+            input[type=range]::-ms-fill-lower {
+              background: #2a6495;
+              border: 0.2px solid #010101;
+              border-radius: 2.6px;
+              box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            }
+            input[type=range]::-ms-fill-upper {
+              background: lightgray;
+            /*  border: 0.2px solid #010101;
+              border-radius: 2.6px;*/
+              box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            }
+            input[type=range]::-ms-thumb {
+              box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+              border: 1px solid #000000;
+              height: 36px;
+              width: 16px;
+              border-radius: 3px;
+              background: #3071a9;
+              cursor: pointer;
+            }
+            input[type=range]:focus::-ms-fill-lower {
+              background: lightgray;
+            }
+            input[type=range]:focus::-ms-fill-upper {
+              background: lightgray;
+            }
+        </style>
+    </div>
+
+    <div id="wheelDiv" style="position: absolute; bottom: 30px; right: 50px;">
+        <div id="rotate-container">
+            <img id="rotate-pointer" src="./src/wheelRudder.png" onmousedown='return false;' draggable="false">
+        </div>
+    </div>
+    <style type="text/css">
+        #rotate-pointer {
+            width: 200px; /*25%;*/
+            height: auto;
+            transform-origin: center 50%;
+            display: block;
+            margin: 0 auto;
+            touch-action: none;
+            /*transform: rotate(180deg);*/
+        }
+        .autoSailingBtn {
+            width: auto;
+            height: 35px;
+            margin-top: 5.5px;
+            border-radius: 10px;
+            border-color: transparent;
+            border-width: 5px;
+            margin-left: 7.5px;
+            margin-right: 7.5px;
+        }
+        .btn-primary {
+            color:#fff;
+            background-color: #0069D9;
+            border-color: #0062CC;   
+        }
+        .btn-secondary {
+            color:#fff;
+            background-color: #5A6267; 
+            border-color: #545B62;  
+        }
+        .btn-warning {
+            color:#fff;
+            background-color: #F8C133; 
+            border-color: #F8C133;  
+        }
+    </style>
+    <!-- //////////////////////////// -->
+    <!-- Control - Wheel END -->
+    <!-- //////////////////////////// -->
+
+    <!-- //////////////////////////// -->
+    <!-- Loading View START -->
+    <!-- //////////////////////////// -->
+    <div id="isLoadingModal" style="position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; overflow:hidden; background-color:rgba(0,0,0,0.4); display: none;">
+        <div style="margin-left:calc(50vw - 100px); margin-top:calc(50vh - 50px);">
+            <p style="width: 200px; padding-left: -100px; text-align: center; color: white;">Connecting to The Vessel...</p>
+            <img src="./src/loading.gif" width="80" style="margin-left: 60px">
+        </div>
+    </div>
+    <!-- //////////////////////////// -->
+    <!-- Loading View END -->
+    <!-- //////////////////////////// -->
+
+    <!-- //////////////////////////// -->
+    <!-- Login START -->
+    <!-- //////////////////////////// -->
+    <div id="loginDiv" style="width: 100%; height: 100%; background-color:rgba(0,0,0,0.4); z-index: 1000; position:fixed; left:0; top:0; ">
+        <div class="form-popup" >
+            <form class="form-container" style="border-radius: 0px 35px 0px 0px;">
+                <label for="email"><b id="login-device-id-title">Device ID</b></label>
+                <input id="login-device-id-input" type="text" placeholder="Enter Device ID" name="email" required>
+                <label for="psw"><b id="login-device-pw-title">Password</b></label>
+                <input id="login-device-pw-input" type="password" placeholder="Enter Password" name="psw" required>
+                <button id="login-submit-button" type="button" class="btn" onclick="login_button_clicked();">Login</button>
+            </form>
+        </div>
+    </div>
+    <style>
+        * {box-sizing: border-box;}
+
+        /* The popup form - hidden by default */
+        .form-popup {
+            /*border: 3px solid #f1f1f1;*/
+            z-index: 9;
+            position: fixed;
+            left: 50%;
+            bottom: 0px;
+            transform: translate(-50%, 0%);
+            margin: 0 auto;
+            width: 75%;
+            max-width: 600px;
+        }
+
+        /* Add styles to the form container */
+        .form-container {
+            max-width: 100%;
+            padding: 30px;
+            background-color: white;
+        }
+
+        /* Full-width input fields */
+        .form-container input[type=text], .form-container input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        /* When the inputs get focus, do something */
+        .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Set a style for the submit/login button */
+        .form-container .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.8;
+        }
+
+        /* Add some hover effects to buttons */
+        .form-container .btn:hover {
+            opacity: 1;
+        }
+    </style>
+    <!-- //////////////////////////// -->
+    <!-- LoginEND -->
+    <!-- //////////////////////////// -->
+
+    <!-- ***** Helper Function START ***** -->
+    <script>
+        window.mobileAndTabletCheck = function() {
+            let check = false;
+            (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+            return check;
+        };
+
+        function roundToTwo(num) {    
+            return +(Math.round(num + "e+2")  + "e-2");
+        }
+
+        function isNumeric(str) {
+            if (typeof str != "string") return false // we only process strings!  
+            return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+                 !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+        }
+
+        var hantDict = {"Straight": "直行", 
+                        "Left Turn": "左轉", 
+                        "Right Turn": "右轉",
+                        "Angle": "角度",
+                        "Power": "動力",
+                        "Start Auto Sailing": "開啟自動航行",
+                        "Start": "開始",
+                        "Close": "關閉",
+                        "Click the map to add waypoint or click the marker to remove the waypoint": "點擊地圖以新增航點或點擊標記以移除航點",
+                        "Waypoint": "航點",
+                        "Distance": "距離",
+                        "No waypoint is added": "沒有添加航點",
+                        "Distance between waypoints cannot be less than": "航點距離不能小於",
+                        "Stop Auto Sailing": "停止自動航行",
+                        "Confirm to stop auto sailing?": "確定停止自動航行？",
+                        "Auto sailing is completed": "自動航行已完成",
+                        "GPS is not active": "GPS未開啟",
+                        "Auto sailing is enabled": "自動航行已開啟",
+                        "What is the min. power?": "最小功率為？",
+                        "Input has to be a number, cannot be empty and must be 0 - 1": "輸入必須為數字，不能為空及是 0 - 1",
+                        "What is the max. power?": "最大功率為？",
+                        "Max. power cannot be less than min. power": "最大功率不能小於最小功率",
+                        "What is the calibration angle?": "校準角度為？",
+                        "Input has to be an integer, cannot be empty and must be -45 - 45": "輸入必須為整數，不能為空及是 -45 - 45",
+                        "If required to set turning opposite direction, input 1. Otherwise, input 0": "如需設置相反角度，輸入1，否則輸入0",
+                        "Input has to be 1 or 0 and cannot be empty": "輸入必須為 1 或 0 及不能為空",
+                        "Confirm for power and angle setting?": "確認功率和角度設置？",
+                        "Min. power": "最小功率",
+                        "Max. power": "最大功率",
+                        "Calibration Angle": "校準角度",
+                        "Opposite Angle": "相反角度",
+                        "Power and angle setting is set": "功率和角度設定已完成",
+                        "Yes": "是",
+                        "No": "否",
+                        "Permission Denied": "沒有權限",
+                        "This browser does not support the motion control": "此瀏覽器不支援動作控制",
+                        "Rotating the phone left and right will make the device turning left and right. Press recalibrate button if angle reset is needed, and press pedal to move the device forward or backward": "旋轉手左右機會使設備左右轉動。如需重置角度，請按重新校準按鈕及按油門以移動設備前或後。",
+                        "Device ID": "設備帳號",
+                        "Enter Device ID": "輸入設備帳號",
+                        "Password": "密碼",
+                        "Enter Password": "輸入密碼",
+                        "Login": "登入",
+                        "Device ID and password cannot be empty": "設備帳號和密碼不能為空"};
+        var hansDict = {"Straight": "直行",
+                        "Left Turn": "左转",
+                        "Right Turn": "右转",
+                        "Angle": "角度",
+                        "Power": "动力",
+                        "Start Auto Sailing": "开启自动航行",
+                        "Start": "开始",
+                        "Close": "关闭",
+                        "Click the map to add waypoint or click the marker to remove the waypoint": "点击地图以新增航点或点击标记以移除航点",
+                        "Waypoint": "航点",
+                        "Distance": "距离",
+                        "No waypoint is added": "没有添加航点",
+                        "Distance between waypoints cannot be less than": "航点距离不能小于",
+                        "Stop Auto Sailing": "停止自动航行",
+                        "Confirm to stop auto sailing?": "确定停止自动航行？",
+                        "Auto sailing is completed": "自动航行已完成",
+                        "GPS is not active": "GPS未开启",
+                        "Auto sailing is enabled": "自动航行已开启",
+                        "What is the min. power?": "最小功率为？",
+                        "Input has to be a number, cannot be empty and must be 0 - 1": "输入必须为数字，不能为空及是 0 - 1",
+                        "What is the max. power?": "最大功率为？",
+                        "Max. power cannot be less than min. power": "最大功率不能小于最小功率",
+                        "What is the calibration angle?": "校准角度为？",
+                        "Input has to be an integer, cannot be empty and must be -45 - 45": "输入必须为整数，不能为空及是 -45 - 45",
+                        "If required to set turning opposite direction, input 1. Otherwise, input 0": "如需设置相反角度，输入1，否则输入0",
+                        "Input has to be 1 or 0 and cannot be empty": "输入必须为 1 或 0 及不能为空",
+                        "Confirm for power and angle setting?": "确认功率和角度设置？",
+                        "Min. power": "最小功率",
+                        "Max. power": "最大功率",
+                        "Calibration Angle": "校准角度",
+                        "Opposite Angle": "相反角度",
+                        "Power and angle setting is set": "功率和角度设定已完成",
+                        "Yes": "是",
+                        "No": "否",
+                        "Permission Denied": "没有权限",
+                        "This browser does not support the motion control": "此浏览器不支援动作控制",
+                        "Rotating the phone left and right will make the device turning left and right. Press recalibrate button if angle reset is needed, and press pedal to move the device forward or backward": "旋转手左右机会使设备左右转动。如需重置角度，请按重新校准按钮及按油门以移动设备前或后。",
+                        "Device ID": "设备帐号",
+                        "Enter Device ID": "输入设备帐号",
+                        "Password": "密码",
+                        "Enter Password": "输入密码",
+                        "Login": "登入",
+                        "Device ID and password cannot be empty": "设备帐号和密码不能为空"};
+
+        function getLocalized(word) {
+            if (language == "hant")
+                return word in hantDict ? hantDict[word] : word;
+            if (language == "hans")
+                return word in hansDict ? hansDict[word] : word;
+            return word;
+        }
+
+        // prevent auto zooming
+        if (window.mobileAndTabletCheck()) {
+            document.getElementById("login-device-id-input").style.fontSize = Math.round(screen.width * 0.1).toString() + "px";
+            document.getElementById("login-device-pw-input").style.fontSize = Math.round(screen.width * 0.1).toString() + "px";
+            document.getElementById("login-device-id-title").style.fontSize = Math.round(screen.width * 0.075).toString() + "px";
+            document.getElementById("login-device-pw-title").style.fontSize = Math.round(screen.width * 0.075).toString() + "px";
+            document.getElementById("login-submit-button").style.fontSize = Math.round(screen.width * 0.1).toString() + "px";
+        }
+    </script>
+    <!-- ***** Helper Function End ***** -->
+
+    <script>
+        ///////////////////////////////////////
+        // ***** Host and websocket START *****
+        ///////////////////////////////////////
+
+        var DEVICE_ID = null;
+        var DEVICE_PW = null;
+        function login_button_clicked() {
+            var id = document.getElementById("login-device-id-input").value;
+            var pw = document.getElementById("login-device-pw-input").value;
+            if (id == null || id == "" || pw == null || pw == "") {
+                alert(getLocalized("Device ID and password cannot be empty"));
+            } else {
+                DEVICE_ID = id;
+                DEVICE_PW = pw;
+                document.getElementById("loginDiv").style.display = "none";
+                allowControl(false, true);
+                get_host();
+            }
+        }
+
+        var CAMERA_HOST = null;
+        var CONTROL_HOST = null;
+        var SERVER_URL = "https://innomati.com/api.php";
+        var VIEWER_ID = new Date().getTime().toString()
+        var connecting_to_host_data = 0;
+        function get_host() {
+            if (connecting_to_host_data == 0) {
+                connecting_to_host_data += 1;
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        connecting_to_host_data -= 1;
+                        if (xhr.status === 200) {
+                            response = JSON.parse(xhr.responseText);
+                            if (response["success"]) {
+                                var data = response["data"];
+                                CAMERA_HOST = data["camera_host"];
+                                CONTROL_HOST = data["control_host"];
+                                set_control_host();
+                                set_camera_host();
+                            } else if (response["error"]["code"] == 1002) {
+                                setTimeout("get_host()", 5000);
+                            } else if (response["error"]["code"] == 1003) {
+                                alert(response["error"]["message"]);
+                                document.getElementById("loginDiv").style.display = "block";
+                                allowControl(true, false);
+                            } else {
+                                alert(response["error"]["message"]);
+                            }
+                        } else {
+                            alert("Error: " + xhr.statusText);
+                        }
+                    }
+                }
+                xhr.open("POST", SERVER_URL, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    action: "get_device_host",
+                    data: {"device_id": DEVICE_ID, "device_api_key": DEVICE_PW}
+                }));
+            }
+        }
+
+        var camera_connected = false;
+        function set_camera_host() {
+            if (CAMERA_HOST != null && !camera_connected) {
+                var cameraCanvas = document.getElementById("cameraCanvas")
+                var wsavc = new WSAvcPlayer(cameraCanvas, "webgl");
+                var hostname = CAMERA_HOST["hostname"];
+                var port = CAMERA_HOST["port"];
+                if (port != null)
+                    hostname += ":" + port;
+                wsavc.connect("wss://" + hostname + "/");
+                wsavc.ws.onerror = function(evt) {
+                    camera_connected = false;
+                    CAMERA_HOST = null;
+                    get_host();
+                };  
+                camera_connected = true;
+            }
+        }
+
+        var latency_timer = null;
+        function get_latency() {
+            send_message_to_socket("get_latency", {"start_time": new Date().getTime()});
+        }
+
+        var websocket = null;
+        var device_data = null;
+        var control_connected = false;
+        function set_control_host() {
+            if (CONTROL_HOST != null && !control_connected) {
+                var hostname = CONTROL_HOST["hostname"];
+                var port = CONTROL_HOST["port"];
+                if (port != null)
+                    hostname += ":" + port;
+                websocket = new WebSocket("wss://" + hostname);
+
+                websocket.onclose = function (event) {
+                    control_connected = false;
+                    CONTROL_HOST = null;
+                    get_host();
+                    allowControl(false, true);
+                    clearInterval(latency_timer);
+                    latency_timer = null;
+                };
+
+                websocket.onopen = function (msg) {
+                    send_message_to_socket("register", {"viewer_uid": VIEWER_ID, "type": "viewer", "device_uid": DEVICE_ID});
+                    control_connected = true;
+                    allowControl(true, false);
+                    latency_timer = setInterval("get_latency()", 2000);
+                };
+
+                websocket.onmessage = function (event) {
+                    var request = JSON.parse(event.data);
+                    var response = request["response"];
+                    var requestData = request["data"];
+                    var data = response["data"];
+
+                    if (request.action == "device_data" || request.action == "get_latency") {
+                        console.log("RECEIVE DATA: " + request.action);
+                    } else {
+                        console.log("RECEIVE DATA: ", event.data);
+                    }
+                    
+                    switch (request.action) {
+                        case "get_latency":
+                            var start_time = requestData["start_time"];
+                            var end_time = new Date().getTime();
+                            var latency = Math.round((end_time - start_time) / 2);
+                            document.getElementById("latency").innerHTML = latency + "ms";
+                            break;
+                        case "control":
+                            deviceConfirmed = Object.keys(lastControlSend).length === 0 || (lastControlSend["angle"] == requestData["angle"] && lastControlSend["power"] == requestData["power"])
+                            break;
+                        case "register":
+                            break;
+                        case "control_auto":
+                            autoSailingResponse(requestData["on"], response["success"], response["error"]);
+                            break;
+                        case "control_auto_completed":
+                            autoSailingCompletedResponse();
+                            break;
+                        case "power_angle_setting":
+                            allowControl(true, false);
+                            if (response["success"]) {
+                                alert(getLocalized("Power and angle setting is set"));
+                            } else {
+                                alert(response["error"]["message"]);
+                            }
+                            break;                
+                        case 'device_data':
+                            device_data = data;
+                            var sensor_data = device_data["sensor_data"];
+                            document.getElementById("users").innerHTML = data.viewers;
+
+                            if (sensor_data["lat"] == null && sensor_data["lon"] == null) {
+                                sensor_data["lat"] = 22.41454653636321;
+                                sensor_data["lon"] = 114.22341291499741;
+                            }
+                            if (sensor_data["H_speed"] == null)
+                                sensor_data["H_speed"] = 0;
+                            // sensor_data["yaw"] = 90;
+                            if (sensor_data["lat"] != null && sensor_data["lat"] != "" 
+                                && sensor_data["lon"] != null && sensor_data["lon"] != "") {
+                                map_init_coordination = {lat: sensor_data["lat"], lng: sensor_data["lon"]}
+                                loadMap();
+                                mapMoveTo(sensor_data["lat"], sensor_data["lon"], sensor_data["yaw"]);
+                            }
+                            document.getElementById("autoSailingBtn").style.display = sensor_data["lat"] != null && sensor_data["lat"] != "" && sensor_data["lon"] != null && sensor_data["lon"] != "" ? "block" : "none";
+                            var hSpeedInMS = sensor_data["H_speed"];
+                            if (hSpeedInMS != null) {
+                                var kmhSpeed = roundToTwo(hSpeedInMS * 3.6);
+                                document.getElementById("h_speed").innerHTML = kmhSpeed + "km/h"; 
+                            } else {
+                                document.getElementById("h_speed").innerHTML = "?km/h";
+                            }
+                            if (sensor_data["battery_info"] != null && "battery_level" in sensor_data["battery_info"]) {
+                                document.getElementById("battery_level").innerHTML = sensor_data["battery_info"]["battery_level"]["amount"] + "%";
+                            } else {
+                                document.getElementById("battery_level").innerHTML = "88%";
+                            }
+                            
+                            const control_data = data["control_data"];
+                            if (deviceConfirmed) {
+                                document.getElementById("powerInput").value = Math.round(control_data["power"] * 5);
+                                deviceAngle = Math.round(control_data["angle"] * 35);
+                                rotateAction();
+
+                                setControlText();
+                            }
+                            if (control_data["autoSailing"]["on"] && !isAutoSailing)
+                                autoSailingActive(control_data["autoSailing"]["coordinates"]);
+                            if (document.getElementById("mapCenter").style.display == "none" || control_data["autoSailing"]["on"])
+                                mapMoveToCenterClicked();
+                            break;
+                        default:
+                            console.error("unsupported event", response);
+                    }
+                };
+            }
+        }
+
+        function send_message_to_socket(action, data) {
+            var dictionary = {"action": action, "data": data};
+            websocket.send(JSON.stringify(dictionary));
+            console.log("SEND DATA: ", JSON.stringify(dictionary));
+        }
+
+        ///////////////////////////////////////
+        // ***** Host and websocket END *****
+        ///////////////////////////////////////
+
+        //////////////////////////////////////
+        // ***** Setting Start *****
+        //////////////////////////////////////
+
+        function settingButtonClicked() {
+            set_min_power();
+        }
+
+        function set_min_power() {
+            let min_power = prompt(getLocalized("What is the min. power?") + " (0 - 1)");
+            if (min_power == null) {
+                
+            } else if (min_power == "" || !isNumeric(min_power) || Number(min_power) < 0 || Number(min_power) > 1) {
+                alert(getLocalized("Input has to be a number, cannot be empty and must be 0 - 1"))
+                set_min_power();
+            } else {
+                set_max_power(Number(min_power));
+            }
+        }
+
+        function set_max_power(min_power) {
+            let max_power = prompt(getLocalized("What is the max. power?") + " (0 - 1)");
+            if (max_power == null) {
+                
+            } else if (max_power == "" || !isNumeric(max_power) || Number(max_power) < 0 || Number(max_power) > 1) {
+                alert(getLocalized("Input has to be a number, cannot be empty and must be 0 - 1"))
+                set_max_power(min_power);
+            } else if (min_power >= Number(max_power)) {
+                alert(getLocalized("Max. power cannot be less than min. power"))
+                set_max_power(min_power)
+            } else {
+                set_calibration_angle(min_power, Number(max_power));
+            }
+        }
+
+        function set_calibration_angle(min_power, max_power) {
+            let calibration_angle = prompt(getLocalized("What is the calibration angle?") + " (-45 - 45)");
+            if (calibration_angle == null) {
+                
+            } else if (calibration_angle == "" || !(!isNaN(calibration_angle) && Number.isInteger(parseFloat(calibration_angle))) || parseInt(calibration_angle) < -45 || parseInt(calibration_angle) > 45) {
+                alert(getLocalized("Input has to be an integer, cannot be empty and must be -45 - 45"))
+                set_calibration_angle(min_power, max_power);
+            } else {
+                set_is_opposite_angle(min_power, max_power, parseInt(calibration_angle));
+            }
+        }
+
+        function set_is_opposite_angle(min_power, max_power, calibration_angle) {
+            let is_opposite_angle = prompt(getLocalized("If required to set turning opposite direction, input 1. Otherwise, input 0"));
+            if (is_opposite_angle == null) {
+                
+            } else if (is_opposite_angle == "" || (is_opposite_angle != "0" && is_opposite_angle != "1")) {
+                alert(getLocalized("Input has to be 1 or 0 and cannot be empty"))
+                set_is_opposite_angle(min_power, max_power, calibration_angle);
+            } else {
+                confirm_setting(min_power, max_power, calibration_angle, is_opposite_angle == "1");
+            }
+        }
+
+        function confirm_setting(min_power, max_power, calibration_angle, is_opposite_angle) {
+            power_angle_confirmation = getLocalized("Confirm for power and angle setting?") + "\n" +
+                                        getLocalized("Min. power") + ": " + min_power + "\n" +
+                                        getLocalized("Max. power") + ": " + max_power + "\n" +
+                                        getLocalized("Calibration Angle") + ": " + calibration_angle + "\n" +
+                                        getLocalized("Opposite Angle") + ": " + getLocalized(is_opposite_angle ? "Yes" : "No");
+            if (confirm(power_angle_confirmation)) {
+                allowControl(false, true);
+                send_message_to_socket("power_angle_setting", {"min_power": min_power, "max_power": max_power, "calibration_angle": calibration_angle, "is_opposite_angle": is_opposite_angle});
+            }
+        }
+
+        //////////////////////////////////////
+        // ***** Setting End *****
+        //////////////////////////////////////
+
+        //////////////////////////////////////
+        // ***** Map START *****
+        //////////////////////////////////////
+
+        var map = null;
+        var map_marker = null;
+        var map_icon = null;
+        var map_init_coordination = null; //  {lat: 22.428128, lng: 114.225374};
+
+        var isMapReady = false;
+        function initMap() {
+            isMapReady = true;
+            loadMap();
+        }
+
+        function loadMap() {
+            if (!isMapReady || map_init_coordination == null) {
+                setTimeout("loadMap()", 1000);
+            } else {
+                isMapReady = false;
+                map_icon = {
+                    path: "M87 149 c-62 -145 -61 -152 17 -126 41 14 50 14 96 -1 31 -10 53 -12 59 -6 9 9 -96 264 -109 264 -4 0 -32 -59 -63 -131z",
+                    scale: .1,
+                    strokeColor: 'blue',
+                    strokeWeight: .10,
+                    fillOpacity: 1,
+                    fillColor: 'blue',
+                    // offset: '0%',
+                    rotation: 180,
+                    anchor: new google.maps.Point(150, 150) // orig 10,50 back of car, 10,0 front of car, 10,25 center of car
+                };
+                var styles = [{
+                    "featureType": "poi",
+                        "stylers": [{
+                        "visibility": "off"
+                    }]
+                }, {
+                    "featureType": "transit",
+                        "stylers": [{
+                        "visibility": "off"
+                    }]
+                }]
+                map = new google.maps.Map(document.getElementById("map"), {
+                    center: map_init_coordination,
+                    zoom: 16,
+                    disableDefaultUI: true,
+                    styles: styles 
+                });
+                var icon = {
+                    position: map_init_coordination,
+                    map: map,
+                    icon: map_icon,
+                }
+                map_marker = new google.maps.Marker(icon);
+
+                map.addListener("drag", () => {
+                    if (!autoSailingSelecting)
+                        document.getElementById("mapCenter").style.display = "block";
+                });
+
+                map.addListener('click', function(e) {
+                    if (autoSailingSelecting)
+                        autoSailingAddWaypoints(e.latLng);
+                });
+            }
+        }
+
+        function mapMoveToCenterClicked() {
+            document.getElementById("mapCenter").style.display = "none";
+            var sensor_data = device_data["sensor_data"];
+            mapMoveTo(sensor_data["lat"], sensor_data["lon"], sensor_data["yaw"], true);
+        }
+
+        function mapMoveTo(lat, lon, iconHeading, mapToCenter = false) {
+            if (map != null && map_marker != null && map_icon != null) {
+                var coordination = new google.maps.LatLng(lat, lon);
+                if (mapToCenter)
+                    map.setCenter(coordination); 
+                map_marker.setPosition(coordination);
+                map_icon.rotation = (iconHeading + 180) % 360;
+                map_marker.setIcon(map_icon);
+            }
+        }
+
+        //////////////////////////////////////
+        // ***** Map End *****
+        //////////////////////////////////////
+
+        //////////////////////////////////////
+        // ***** Auto Sailing START *****
+        //////////////////////////////////////
+
+        var autoSailingSelecting = false;
+        var isAutoSailing = false;
+        function autoSailingBtnClicked() {
+            if (isAutoSailing) {
+                if (confirm(getLocalized("Confirm to stop auto sailing?"))) {
+                    send_message_to_socket("control_auto", {"on": false});
+                }
+            } else {
+                document.getElementById('mapCover').classList.remove('mapCoverCircle');
+                document.getElementById('mapCover').classList.add('mapCoverFullScreen');
+                document.getElementById('map').classList.remove('mapCircle');
+                document.getElementById('map').classList.add('mapFullScreen');
+                document.getElementById("mapFullScreenDiv").style.display = "block";
+                autoSailingSelecting = true;
+
+                autoSailingClearMap();
+            }     
+        }
+
+        var markers = [];
+        function autoSailingAddWaypoints(coordination) {
+            var marker = new google.maps.Marker({
+                id: Date.now(),
+                position: coordination, 
+                map: map
+            });
+            markers.push(marker);
+            autoSailingDrawLine();
+            marker.addListener("click", () => {
+                markers = markers.filter(m => m.id != marker.id);
+                marker.setMap(null);
+                autoSailingDrawLine();
+            });
+        }
+
+        var polyline = null;
+        function autoSailingDrawLine() {
+            autoSailingClearLine();
+            var path = [];
+            var sensor_data = device_data["sensor_data"];
+            path.push(new google.maps.LatLng(sensor_data["lat"], sensor_data["lon"]));
+            for (var i = 0; i < markers.length; i++)
+                path.push(new google.maps.LatLng(markers[i].getPosition().lat(), markers[i].getPosition().lng()));
+            polyline = new google.maps.Polyline({
+                path: path,
+                strokeColor: "#89CFF0",
+                strokeWeight: 3,
+                map: map
+            });
+
+            var polylineLength = google.maps.geometry.spherical.computeLength(polyline.getPath());
+            document.getElementById("fullScreenInfo").innerHTML = getLocalized("Waypoint") + ": " + markers.length + " | " + getLocalized("Distance") + ": " + (Math.round(polylineLength) / 1000) + "km";
+        }
+
+        function autoSailingClearLine() {
+            if (polyline != null)
+                polyline.setMap(null);
+        }
+
+        function autoSailingStartClicked() {
+            if (markers.length == 0) {
+                alert(getLocalized("No waypoint is added"));
+                return
+            }
+            var coordinates = [];
+            for (var i = 0; i < markers.length; i++)
+                coordinates.push([markers[i].getPosition().lat(), markers[i].getPosition().lng()]);
+
+            send_message_to_socket("control_auto", {"on": true, "coordinates": coordinates});
+            document.getElementById("fullScreenStartBtn").disabled = true;
+            document.getElementById("fullScreenCloseBtn").disabled = true;
+        }
+
+        var autoSailingIsActivited = false;
+        function autoSailingResponse(isOn, success, error) {
+            if (isOn) {
+                document.getElementById("fullScreenStartBtn").disabled = false;
+                document.getElementById("fullScreenCloseBtn").disabled = false;
+                if (success) {
+                    document.getElementById('mapCover').classList.remove('mapCoverFullScreen');
+                    document.getElementById('mapCover').classList.add('mapCoverCircle');
+                    document.getElementById('map').classList.remove('mapFullScreen');
+                    document.getElementById('map').classList.add('mapCircle');
+                    document.getElementById("mapFullScreenDiv").style.display = "none";
+                    autoSailingSelecting = false;
+                    autoSailingIsActivited = true;
+
+                    autoSailingLockView();
+                } else {
+                    if (error.code == 2003) {
+                        alert(getLocalized("Distance between waypoints cannot be less than") + " " + error.data.distanceInMeter + "m");
+                    } else if (error.code == 2004) {
+                        alert(getLocalized("GPS is not active"))
+                    } else {
+                        alert(error["message"]);
+                    }
+                }
+            } else {
+                if (success) {
+                    document.getElementById('autoSailingBtn').classList.remove('btn-warning');
+                    document.getElementById('autoSailingBtn').classList.add('btn-primary');
+                    document.getElementById("autoSailingBtn").innerHTML = getLocalized("Start Auto Sailing");
+                    allowControl(true, false);
+                    isAutoSailing = false;
+                    autoSailingIsActivited = false;
+
+                    autoSailingClearMap();
+                } else {
+                    alert(error["message"]);
+                }
+            }
+        }
+
+        function autoSailingLockView() {
+            document.getElementById('autoSailingBtn').classList.remove('btn-primary');
+            document.getElementById('autoSailingBtn').classList.add('btn-warning');
+            document.getElementById("autoSailingBtn").innerHTML = getLocalized("Stop Auto Sailing");
+            allowControl(false, false);
+            isAutoSailing = true;
+        }
+
+        function autoSailingActive(coordinates) {
+            autoSailingLockView();
+            for (var i = 0; i < coordinates.length; i++)
+                autoSailingAddWaypoints(new google.maps.LatLng(coordinates[i][0], coordinates[i][1]));
+        }
+
+        function autoSailingCompletedResponse() {
+            autoSailingResponse(false, true, null);
+            alert(getLocalized("Auto sailing is completed"));
+        }
+
+        function autoSailingCloseClicked() {
+            document.getElementById('mapCover').classList.remove('mapCoverFullScreen');
+            document.getElementById('mapCover').classList.add('mapCoverCircle');
+            document.getElementById('map').classList.remove('mapFullScreen');
+            document.getElementById('map').classList.add('mapCircle');
+            document.getElementById("mapFullScreenDiv").style.display = "none";
+            autoSailingSelecting = false;
+
+            autoSailingClearMap();
+        }
+
+        function autoSailingClearMap() {
+            mapMoveToCenterClicked();
+            for (var i = 0; i < markers.length; i++)
+                markers[i].setMap(null);
+            markers = [];   
+            autoSailingClearLine();
+            document.getElementById("fullScreenInfo").innerHTML = "";
+        }
+
+        //////////////////////////////////////
+        // ***** Auto Sailing End *****
+        //////////////////////////////////////
+
+        //////////////////////////////////////
+        // ***** Control START *****
+        //////////////////////////////////////
+
+        var lastControlSend = {};
+        var hasDelay = false;
+        var deviceConfirmed = true;
+        var speed_in_percentage = 0;
+        var angle_in_percentage = 0;
+        function controlClicked(speed, angle, sendNow) {
+            speed_in_percentage = roundToTwo(speed);
+            angle_in_percentage = roundToTwo(angle);
+            controlClickedExtend(sendNow)
+        }
+
+        function controlClickedExtend(sendNow) {
+            deviceConfirmed = false;
+            setControlText();
+            if (sendNow) {
+                hasDelay = false;
+                var newControlSend = {"angle": angle_in_percentage, "power": speed_in_percentage};
+                if (newControlSend["angle"] != lastControlSend["angle"] || newControlSend["power"] != lastControlSend["power"]) {
+                    lastControlSend = newControlSend;
+                    send_message_to_socket("control", newControlSend);
+                } else {
+                    deviceConfirmed = true;
+                    setControlText();
+                }
+            } else if (!hasDelay) {
+                hasDelay = true;
+                setTimeout(function() { 
+                    controlClickedExtend(true); 
+                }, 1000);
+            }
+        }
+
+        var currentControlIndex = 0;
+        var availableControl = ["WHEEL", "MOTION"];
+        var gimbal = new Gimbal();
+        if (!window.mobileAndTabletCheck()) {
+            document.getElementById("swapControlButton").style.display = "none";
+            document.getElementById("infoDiv").style.left = "68px";
+            availableControl = ["WHEEL"];
+        }
+
+        function swapControlClicked() {
+            currentControlIndex = (currentControlIndex + 1) % availableControl.length;
+
+            wheelControlEnd();
+            motionControlEnd();
+
+            if (availableControl[currentControlIndex] == "WHEEL") {
+                wheelControlStart();
+            } else if (availableControl[currentControlIndex] == "MOTION") {
+                motionControlStart();
+            }
+        }
+
+        function allowControl(allow, disconnected) {
+            motionControlAllowed(allow && !disconnected);
+            wheelControlAllowed(allow && !disconnected);
+            document.getElementById("isLoadingModal").style.display = disconnected ? "block" : "none";
+        }
+        // allowControl(false, true);
+
+        //////////////////////////////////////
+        // ***** Control End *****
+        //////////////////////////////////////
+
+        //////////////////////////////////////
+        // ***** Control - Motion START *****
+        //////////////////////////////////////
+
+        var motionControlStarted = false;
+        function motionControlStart() {
+            // Check if request method exists in this browser
+            if (!DeviceMotionEvent || !DeviceMotionEvent.requestPermission) {
+                alert(getLocalized("This browser does not support the motion control"));
+                swapControlClicked();
+            } else {
+                DeviceMotionEvent.requestPermission().then(response => {
+                    // Access granted by user
+                    if (response == 'granted') {
+                        alert(getLocalized("Rotating the phone left and right will make the device turning left and right. Press recalibrate button if angle reset is needed, and press pedal to move the device forward or backward"));
+                        motionControlStarted = true;
+                        document.getElementById("recalibrateButton").style.display = "block";
+                        document.getElementById("pedalButton").style.display = "block";
+                        document.getElementById("pedalDiv").style.display = "block";
+                        gimbal.enable();
+                        recalibrateBtnClick();
+                        render();
+                    }
+                    // Access denied by user
+                    else {
+                        alert(getLocalized("Permission Denied"));
+                        swapControlClicked();
+                    }
+                });  
+            } 
+        }
+
+        function motionControlEnd() {
+            motionControlStarted = false;
+            document.getElementById("recalibrateButton").style.display = "none";
+            document.getElementById("pedalButton").style.display = "none";
+            document.getElementById("pedalDiv").style.display = "none";
+        }
+
+        function recalibrateBtnClick() {
+            gimbal.recalibrate();
+        }
+
+        var MOTION_DIRECTION = "D";
+        function directionButtonClicked() {
+            MOTION_DIRECTION = MOTION_DIRECTION == "D" ? "R" : "D";
+            document.getElementById('sliderName').setAttribute('direction-attr-name', MOTION_DIRECTION);
+        }
+
+        var motionPedalIsPressing = false;
+        function pedalStartPressed() {
+            pedalIsPressed(true);
+
+            for (var i = 0; i < motion_timers.length; i++)
+                clearTimeout(motion_timers[i]);
+            pedalIsPressing();
+        }
+
+        function pedalStopPressed() {
+            pedalIsPressed(false);
+            pedalIsPressing();
+
+            motion_speed_percentage = 0;
+            motionControlClicked(true);
+        }
+
+        function pedalIsPressed(pressed) {
+            motionPedalIsPressing = pressed;
+
+            document.getElementById("pedalButton").style.background = pressed ? "yellow" : "lightgray";
+            document.getElementById("pedalButton").style.opacity = pressed ? "0.8" : "0.6";
+            document.getElementById("pedalButton").style.width = pressed ? "70px" : "90px";
+            document.getElementById("pedalButton").style.height = pressed ? "70px" : "90px";
+            document.getElementById("pedalButton").style.right = pressed ? "40px" : "30px";
+            document.getElementById("pedalButton").style.bottom = pressed ? "40px" : "30px";
+        }
+
+        var motion_pedal_percentage = 0;
+        var motion_timers = [];
+        function pedalIsPressing() {
+            var acceleration = 0.1;
+            var isForward = document.getElementById("pedalStatus").checked;
+            if (motionPedalIsPressing) {
+                if (isForward && motion_pedal_percentage >= 0) {
+                    motion_pedal_percentage += acceleration;
+                } else if (!isForward && motion_pedal_percentage <= 0) {
+                    motion_pedal_percentage += acceleration * -1;
+                } else {
+                    if (isForward) {
+                        motion_pedal_percentage = acceleration;
+                    } else {
+                        motion_pedal_percentage = acceleration * -1;
+                    }
+                }
+                motion_pedal_percentage = Math.max(-1, Math.min(1, motion_pedal_percentage));
+                motion_pedal_percentage = roundToTwo(motion_pedal_percentage);
+
+                motion_speed_percentage = motion_pedal_percentage;
+                motionControlClicked(Math.abs(motion_pedal_percentage) == acceleration);
+
+                var timer = setTimeout("pedalIsPressing()", 1000);
+                motion_timers.push(timer);
+            } else {
+                if (motion_pedal_percentage != 0) {
+                    if (isForward && motion_pedal_percentage > 0) {
+                        motion_pedal_percentage -= acceleration;
+                        motion_pedal_percentage = Math.max(0, Math.min(1, motion_pedal_percentage));
+                    } else if (!isForward && motion_pedal_percentage < 0) {
+                         motion_pedal_percentage -= acceleration * -1;
+                         motion_pedal_percentage = Math.max(-1, Math.min(0, motion_pedal_percentage));
+                    } else {
+                        motion_pedal_percentage = 0;
+                    }
+                    motion_pedal_percentage = roundToTwo(motion_pedal_percentage);
+                    var timer = setTimeout("pedalIsPressing()", 333);
+                    motion_timers.push(timer);
+                }
+            }
+        }
+
+        var motion_angle_percentage = 0;
+        var motion_speed_percentage = 0;
+        function motionControlClicked(sendNow = false) {
+            if (motion_angle_percentage != lastControlSend["angle"] || motion_speed_percentage != lastControlSend["power"])
+                controlClicked(motion_speed_percentage, motion_angle_percentage, sendNow);
+        }
+
+        function render() {
+            if (motionControlStarted) {
+                if (motionAllowed) {
+                    gimbal.update();
+
+                    var DEG = 180 / Math.PI;
+                    var rollhMax = 45;
+
+                    // var pitch = (gimbal.pitch * DEG).toFixed(1)
+                    var roll = (gimbal.roll * DEG).toFixed(1)
+                    // var yaw = (gimbal.yaw * DEG).toFixed(1)
+
+                    if (Math.abs(roll) > rollhMax)
+                        roll = roll > 0 ? rollhMax : rollhMax * -1;
+
+                    if (motionControlStarted) {
+                        var motion_angle = roundToTwo(roll / rollhMax)
+
+                        motion_angle_percentage = Math.round(motion_angle / 0.05) * 0.05;
+                        motionControlClicked();
+
+                        requestAnimationFrame(render);
+                    }
+                } else {
+                    setTimeout("render()", 1000);
+                }
+            }
+        }
+
+        var motionAllowed = false;
+        function motionControlAllowed(allow) {
+            motionAllowed = allow;
+            if (allow) {
+                document.getElementById("pedalButton").addEventListener('touchstart', pedalStartPressed);
+                document.getElementById("pedalButton").addEventListener('touchend', pedalStopPressed);
+            } else {
+                document.getElementById("pedalButton").removeEventListener('touchstart', pedalStartPressed);
+                document.getElementById("pedalButton").removeEventListener('touchend', pedalStopPressed);
+            }
+        }
+
+        //////////////////////////////////////
+        // ***** Control - Motion END ***** //
+        //////////////////////////////////////
+
+        //////////////////////////////////////
+        // ***** Control - Wheel Start ***** //
+        //////////////////////////////////////
+
+        function wheelControlStart() {
+            document.getElementById("speedDiv").style.display = "block";
+            document.getElementById("wheelDiv").style.display = "block";
+        }
+
+        function wheelControlEnd() {
+            document.getElementById("speedDiv").style.display = "none";
+            document.getElementById("wheelDiv").style.display = "none";
+        }
+
+        function powerDidChange() {
+            wheelControlClicked(true);
+        }
+
+        function powerOnChange() {
+            wheelControlClicked();
+        }
+
+        function wheelControlClicked(sendNow = false) {
+            var power = parseInt(document.getElementById("powerInput").value);
+            var angle = deviceAngle;
+            rotateAction();
+            controlClicked(roundToTwo(power / 5), roundToTwo(angle / 35), sendNow);
+        }
+
+        function speedButtonClicked(num) {
+            document.getElementById("powerInput").value = num;
+            powerDidChange();
+        }
+
+        var pointer = document.getElementById("rotate-pointer"),
+            pointerBox = pointer.getBoundingClientRect(),
+            centerPoint = window.getComputedStyle(pointer).transformOrigin,
+            centers = centerPoint.split(" ");
+
+        var canRotate = false;
+        var deviceAngle = 0;
+
+        function stopRotate() {
+            canRotate = false;
+            wheelControlClicked(true);
+        }
+
+        function startRotate() {
+            canRotate = true;
+        }
+
+        function rotatePointer(e) {
+            if (canRotate) {
+                var pointerEvent = e;   
+                if (e.targetTouches && e.targetTouches[0]) {
+                    e.preventDefault(); 
+                    pointerEvent = e.targetTouches[0];
+                    mouseX = pointerEvent.pageX;
+                    mouseY = pointerEvent.pageY;
+                } else {
+                    mouseX = e.clientX,
+                    mouseY = e.clientY;
+                }
+
+                var centerY = pointerBox.top + parseInt(centers[1]) - window.pageYOffset,
+                    centerX = pointerBox.left + parseInt(centers[0]) - window.pageXOffset,
+                    radians = Math.atan2(mouseX - centerX, mouseY - centerY),
+                    degrees = (radians * (180 / Math.PI) * -1) + 180; 
+                var maxAngle = 70;
+                if (degrees > (360 - maxAngle)) {
+                    deviceAngle = degrees - 360;
+                } else if (degrees < maxAngle) {
+                    deviceAngle = degrees;
+                } else if (degrees > 180) {
+                    deviceAngle = -maxAngle;
+                } else {
+                    deviceAngle = maxAngle;
+                }
+                deviceAngle = Math.round(deviceAngle / 2); 
+                wheelControlClicked();
+            }
+        }
+
+        function rotateAction() {
+            var convertedAngle = deviceAngle * 2
+            var angle = convertedAngle >= 0 ? convertedAngle : 360 + convertedAngle;
+            pointer.style.transform = 'rotate(' + angle + 'deg)';
+        }
+
+        function setControlText() {
+            var control_data = device_data["control_data"];
+            var power_in_percentage = 0;
+            if (device_data != null && speed_in_percentage != 0) {
+                var diff = control_data["max_power"] - control_data["min_power"];
+                power_in_percentage = (speed_in_percentage > 0 ? 1 : -1) * control_data["min_power"] + diff * speed_in_percentage;
+            }
+            power_in_percentage = Math.round(power_in_percentage * 100);
+            var angle = Math.round(angle_in_percentage * 35);
+            if (autoSailingIsActivited) {
+                power_in_percentage = Math.round(control_data["power_in_percentage"] * 100); 
+                angle = Math.round(control_data["angle"] * 35);
+            }
+
+            var angleSpan = document.getElementById("rotate-angle")
+            var deviceWaiting = getLocalized("Angle") + ": ";
+            if (angle == 0)
+                deviceWaiting += getLocalized("Straight")
+            else if (angle > 0)
+                deviceWaiting += getLocalized("Right Turn") + " " + angle + "°"
+            else
+                deviceWaiting += getLocalized("Left Turn") + " " + Math.abs(angle) + "°"
+            deviceWaiting += " | " + getLocalized("Power") + ": " + power_in_percentage + "%";
+
+            angleSpan.innerHTML = deviceWaiting;
+            angleSpan.style.background = deviceConfirmed ? "transparent" : "yellow";
+            angleSpan.style.color = deviceConfirmed ? "white" : "red";
+        }
+
+        function wheelControlAllowed(allow) {
+            if (allow) {
+                if (window.mobileAndTabletCheck()) {
+                    document.getElementById("rotate-container").addEventListener('touchstart', startRotate);
+                    document.getElementById("rotate-container").addEventListener('touchend', stopRotate);
+                    document.getElementById("rotate-container").addEventListener('touchmove', rotatePointer);
+                } else {
+                    document.getElementById("rotate-container").addEventListener('mousedown', startRotate);
+                    document.getElementById("rotate-container").addEventListener('mouseup', stopRotate);
+                    document.getElementById("rotate-container").addEventListener('mousemove', rotatePointer);
+                }
+            } else {
+                if (window.mobileAndTabletCheck()) {
+                    document.getElementById("rotate-container").removeEventListener('touchstart', startRotate);
+                    document.getElementById("rotate-container").removeEventListener('touchend', stopRotate);
+                    document.getElementById("rotate-container").removeEventListener('touchmove', rotatePointer);
+                } else {
+                    document.getElementById("rotate-container").removeEventListener('mousedown', startRotate);
+                    document.getElementById("rotate-container").removeEventListener('mouseup', stopRotate);
+                    document.getElementById("rotate-container").removeEventListener('mousemove', rotatePointer);
+                }
+            }
+            document.getElementById("powerInput").disabled = !allow;
+            var speedBtns = document.getElementsByClassName("speedBtn");
+            for (var i = 0; i < speedBtns.length; i++)
+                speedBtns[i].disabled = !allow;
+        }
+
+        //////////////////////////////////////
+        // ***** Control - Wheel End ***** //
+        //////////////////////////////////////
+
+        //////////////////////////////////////
+        // ***** Language Start ***** //
+        //////////////////////////////////////
+        var params_list = window.location.search.substring(1).split("&");
+        var params = {};
+        for (var i = 0; i < params_list.length; i++) { 
+            var param = params_list[i].split("=");
+            params[param[0]] = param[1];
+        }
+        var language = window.localStorage.getItem('lang') == null ? "hant" : window.localStorage.getItem('lang');
+        var urlLanguage = params["lang"];
+        if (urlLanguage == "hant" || urlLanguage == "hans" || urlLanguage == "en") {
+            language = urlLanguage;
+            window.localStorage.setItem('lang', urlLanguage);
+        }
+
+        document.getElementById("autoSailingBtn").innerHTML = getLocalized("Start Auto Sailing");
+        document.getElementById("fullScreenStartBtn").innerHTML = getLocalized("Start");
+        document.getElementById("fullScreenCloseBtn").innerHTML = getLocalized("Close");
+        document.getElementById("fullScreenMessage").innerHTML = getLocalized("Click the map to add waypoint or click the marker to remove the waypoint")
+
+        document.getElementById("login-device-id-title").innerHTML = getLocalized("Device ID");
+        document.getElementById("login-device-id-input").placeholder = getLocalized("Enter Device ID");
+        document.getElementById("login-device-pw-title").innerHTML = getLocalized("Password");
+        document.getElementById("login-device-pw-input").placeholder = getLocalized("Enter Password");
+        document.getElementById("login-submit-button").innerHTML = getLocalized("Login");
+        //////////////////////////////////////
+        // ***** Language End ***** //
+        //////////////////////////////////////
+
+        document.addEventListener("DOMContentLoaded", function(event) { 
+            if (params["id"] != null && params["pw"] != null) {
+                document.getElementById("login-device-id-input").value = params["id"];
+                document.getElementById("login-device-pw-input").value = params["pw"];
+                login_button_clicked();
+            }
+        });
+
+    </script>
+    <script id="mapScript" async></script>
+    <script type="text/javascript">
+        document.getElementById("mapScript").src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCgf_4eDyThZJ2vPxbo6iAUKloHIQgphf8&language=" + language + "&callback=initMap&libraries=geometry"
+    </script>
+</body>
+</html>

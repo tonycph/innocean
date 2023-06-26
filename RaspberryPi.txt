@@ -1,0 +1,20 @@
+網頁寄存用戶名稱: innonhk1
+網頁寄存用戶密碼: 11q-V(Sj
+控制台(cPanel): http://cpanel.innocean.hk
+臨時登入網址: https://ns77.hostingspeed.net/cpanel/
+
+Pi:
+ssh: 	ssh pi@raspberrypi.local
+PW: 	INNO1inno
+
+US Server:
+ssh -i innocean.pem root@47.88.12.60
+Jimmy-1124
+
+HK Server:
+ssh -i innocean.pem root@47.242.142.254
+
+
+
+
+4W15631IMYD9Q5MHKBX1

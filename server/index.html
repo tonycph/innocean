@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+
+<script type="text/javascript">if (location.protocol !=='https:') location.replace(`https:${location.href.substring(location.protocol.length)}`);</script>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>INNOMATI</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="IOT Internet of Things 物聯網, Unmanned Vehicles 無人車, Unmanned Marine Vessels 無人船, Remote Control Car RC Car 搖控車, Techonology 科技, API 接口, Integration 整合, APP 應用程式, INNOMATI" name="keywords">
+	<meta content="An IOT company has created an innovative remoteless control box for consumer, commercial and professional buyers. It enable features of long range photography, goods delivery, academic research, etc. Users can also customize their needs by the extendable flexibilities of open API and WiFi sharing. 一家物聯網公司為消費者、商業和專業買家創造了一個創新的遠程遙控盒。具有遠距攝影、貨物運輸、學術研究等功能。用戶還可以通過開放性API和WiFi共享的可擴展靈活性來定制他們的需求。" name="description">
+
+	<!-- Favicons -->
+	<link href="website_assets/img/icon_square.png" rel="icon">
+	<link href="website_assets/img/icon_square.png" rel="apple-touch-icon">
+
+	<!-- Google Fonts -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet"> -->
+
+	<!-- Bootstrap CSS File -->
+	<link href="website_assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Libraries CSS Files -->
+	<link href="website_assets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="website_assets/lib/animate/animate.min.css" rel="stylesheet">
+	<link href="website_assets/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+	<link href="website_assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+	<link href="website_assets/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+	<!-- Main Stylesheet File -->
+	<link href="website_assets/lib/style.css" rel="stylesheet">
+
+	<!-- country flag -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
+
+	<!-- Gallery -->
+	<link rel="stylesheet" href="website_assets/lib/gallery_style.css">
+
+	<!-- Meta Pixel Code -->
+	<script>
+	!function(f,b,e,v,n,t,s)
+	{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	n.queue=[];t=b.createElement(e);t.async=!0;
+	t.src=v;s=b.getElementsByTagName(e)[0];
+	s.parentNode.insertBefore(t,s)}(window, document,'script',
+	'https://connect.facebook.net/en_US/fbevents.js');
+	fbq('init', '699697041127049');
+	fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none"
+	src="https://www.facebook.com/tr?id=699697041127049&ev=PageView&noscript=1"
+	/></noscript>
+	<meta name="facebook-domain-verification" content="yc9k2oppcpx0dstmemjqeb2f96nzqa" />
+	<!-- End Meta Pixel Code -->
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-G7Y036X5L2"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-G7Y036X5L2');
+	</script>
+</head>
+
+<style type="text/css">
+	html, body {
+	    max-width: 100%;
+	    overflow-x: hidden;
+	}
+</style>
+
+<body>
+
+	<!--==========================
+	Nav Bar Start
+	============================-->
+	<header id="header">
+		<div class="container-fluid">
+			<div id="logo" class="pull-left">
+				<h1>
+					<a href="./">
+						<!-- <img src="website_assets/img/icon.png" height="35" style="margin-top: -4px;" /> -->
+						<span class="scrollto" style="color: #6CD370">INNOMATI</span>
+					</a>
+				</h1>
+				<!-- Uncomment below if you prefer to use an image logo -->
+				<!-- <a href="#intro"><img src="website_assets/lib/img/favicon.png" width="30" height="30" alt="" title="" /></a> -->
+			</div>
+
+			<nav id="nav-menu-container">
+				<ul class="nav-menu">
+					<!--           <li class="menu-has-children" style="color: white; cursor: pointer;">
+					<a id="tutorialTitle"></a>
+					<ul>
+					<li><a href="./live.html?location=cn"><span class="flag-icon flag-icon-cn"></span> <span id="tutorial-register"></span></a></li>
+					<li><a href="./live.html?location=hk"><span class="flag-icon flag-icon-hk"></span> <span id="tutorial-product"></span></a></li>
+					<li><a href="./live.html?location=sg"><span class="flag-icon flag-icon-sg"></span> <span id="tutorial-buyer"></span></a></li>
+					<li><a href="./live.html?location=uk"><span class="flag-icon flag-icon-gb"></span> <span id="tutorial-transaction"></span></a></li>
+					<li><a href="./live.html?location=us"><span class="flag-icon flag-icon-us"></span> <span id="tutorial-delivery"></span></a></li>
+					</ul>  
+					</li> -->
+					<li><a href="./live.html" id="memberCenter"></a></li>
+					<li><a href="./api.html" id="apiDocumentation"></a></li>
+					<li class="menu-has-children" style="cursor: pointer;">
+						<a id="languageTitle"><span class="flag-icon flag-icon-hk"> </span> 繁</a>
+						<ul>
+							<li><a href="#" onclick="selectLanguageOf('hant')"><span class="flag-icon flag-icon-hk"> </span>  繁</a></li>
+							<li><a href="#" onclick="selectLanguageOf('hans')"><span class="flag-icon flag-icon-cn"> </span>  简</a></li>
+							<li><a href="#" onclick="selectLanguageOf('en')"><span class="flag-icon flag-icon-us"> </span>  Eng</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header><!-- #header -->
+	<!--==========================
+	Nav Bar End
+	============================-->
+
+	<!--==========================
+	Video Background Start
+	============================-->
+	<section id="intro" style="height: calc(100vh - 10vh);">
+		<div class="intro-container">
+			<div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
+
+				<ol class="carousel-indicators"></ol>
+
+				<div class="carousel-inner" role="listbox">
+					<div class="carousel-item active" style="height: calc(100vh - 10vh);">
+						<video autoplay muted playsinline class="myVideo" id="backgroundVideo">
+							<source src="website_assets/img/background.mp4" type="video/mp4">
+							Your browser does not support HTML5 video.
+						</video>
+						<!-- <div class="carousel-background"> -->
+						<img id="backgroundImage" class="myVideo" src="website_assets/img/background.png" style="display: none;">
+						<!-- </div> -->
+						<div class="carousel-container">
+							<div class="carousel-content">
+								<div class="row my-auto">
+									<div class="col-md-6 wow fadeInUp my-auto">
+										<iframe id="youtubeVideo" width="366" height="206" src="https://www.youtube.com/embed/mDJXYccXA8Q?start=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+									</div>
+									<div class="col-md-6 wow fadeInUp">
+										<h2 id="titleInIntro"></h2>  <!-- style="color: #18d26e;" -->
+										<p id="descriptionInIntro"></p>
+										<a href="#where-to-control-section" class="btn-get-started scrollto" id="learnMoreInIntro"></a>
+										<a onclick='pre_order_button_click("1");' style="cursor: pointer;" class="btn-get-started scrollto" id="learnMoreInIntro1"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!-- #intro -->
+
+	<style type="text/css">
+		.myVideo {
+			/*position: fixed;*/
+			object-fit: cover;  
+			width: 100%;
+			height: 100%;   
+			/*      transform: translate(-50%, -50%);
+			top: 50%;
+			left: 50%;
+			height: 100vh;*/
+			z-index: -2;
+		}
+		/* To remove the black background cover */
+/*		#intro .carousel-item::before {
+		  background-color: rgba(0, 0, 0, 0);
+		}*/
+		@media (min-width: 1072px) {
+		    #youtubeVideo {
+		        width: 560px;
+		        height: 315px; 
+		    }
+		}
+		#youtubeVideo {
+			margin-top: 60px;
+			border-radius: 30px 30px 30px 30px;
+		}
+		@media (min-width: 438px) {
+		    #youtubeVideo {
+		        margin-top: 0px;
+		    }
+		 }
+	</style>
+	<!--==========================
+	Video Background End
+	============================-->
+
+	<main id="main">
+
+		<!--==========================
+		Where To Control Start
+		============================-->
+		<section id="where-to-control-section" class="wow fadeInUp" style="margin-top: 30px; margin-bottom: 30px;">
+			<div class="container">
+				<header class="section-header wow fadeInUp">
+					<h3><span id="wheretocontrol-title">How to</span> <span id="wheretocontrol-title0" style='font-weight: bold; color: #6CD370;'>Control</span></h3>
+					<p style="margin: 0;" id="wheretocontrol-description">Wherever internet is available, wherever we are</p>
+				</header>
+
+				<div class="row my-auto">
+					<div class="col-md-6 col-12 wow fadeInUp" style="margin-bottom: 10px;">
+						<div class="about-col">
+							<video id="whereToControlVideo" autoplay muted loop playsinline class="img-fluid" style="max-width: 600px; margin: auto; display: block; width: 100%; box-shadow: 0px 0 30px rgb(1 41 112 / 8%);">
+								<source src="website_assets/img/carplay.mp4" type="video/mp4">
+								Your browser does not support HTML5 video.
+							</video>
+						</div>
+					</div>
+					<div class="col-md-3 col-6 wow fadeInUp whereToControlDiv" onclick="whereToControlClicked(this, 'carplay');" style="cursor: pointer; border-bottom: 2px solid #6CD370;">
+						<div class="about-col">
+							<div class="img">
+								<img src="website_assets/img/carplay.png" alt="" class="img-fluid">
+								<div class="icon"><i class="ion-android-car" style="font-size: 24px; color: #6CD370;"></i></div>
+							</div>
+							<h2 id="wheretocontrol-title1" class="title" style="font-weight: bold; color: #6CD370; margin: 0px;">CAR PLAY</h2>
+							<p id="wheretocontrol-description1" style="margin: 0px;">Use Car Play to control your mini car</p>
+						</div>
+					</div>
+					<div class="col-md-3 col-6 wow fadeInUp whereToControlDiv" onclick="whereToControlClicked(this, 'mobile');" style="cursor: pointer;">
+						<div class="about-col">
+							<div class="img">
+								<img src="website_assets/img/mobile.png" alt="" class="img-fluid">
+								<div class="icon"><i class="ion-iphone" style="font-size: 24px; color: #6CD370;"></i></div>
+							</div>
+							<h2 id="wheretocontrol-title2" class="title" style="font-weight: bold; color: #6CD370; margin: 0px;">MOBILE</h2>
+							<p id="wheretocontrol-description2" style="margin: 0px;">Controller is all about your mobile</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<script type="text/javascript">
+			function whereToControlClicked(ele, name) {
+				var travelAnywhereDiv = document.getElementsByClassName("whereToControlDiv");
+				for (var i = 0; i < travelAnywhereDiv.length; i++)
+					travelAnywhereDiv.item(i).style.border = "none";
+				document.getElementById("whereToControlVideo").src = "website_assets/img/" + name + ".mp4";
+				ele.style.borderBottom = "2px solid #6CD370";
+				if (window.screen.width <= 575) {
+					$('html, body').animate({
+						scrollTop: $("#whereToControlVideo").offset().top - 80
+					}, 500);
+				}
+			}
+		</script>
+		<!--==========================
+		Where To Control End
+		============================-->
+
+		<!--==========================
+		Tech Spec Start
+		============================-->
+		<section id="services" style="background: #f7f7f7;">
+			<div class="container">
+				<header class="section-header wow fadeInUp">
+					<h3><span style='font-weight: bold; color: #6CD370;'>INNOMATI</span> <span id="titleInServices"></span> </h3>
+					<br>
+				</header>
+				<!-- https://www.runoob.com/ionic/ionic-icon.html -->
+				<div class="row">
+					<div class="col-lg-4 col-xs-6 col-sm-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+						<div class="icon"><i class="ion-ios-speedometer"></i></div>
+						<h4 class="title" id="subtitleInTeam4"></h4>
+						<p class="description" id="subDescriptionInTeam4"></p>
+					</div>
+					<div class="col-lg-4 col-xs-6 col-sm-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+						<div class="icon"><i class="ion-location"></i></div>
+						<h4 class="title" id="subtitleInTeam3"></h4>
+						<p class="description" id="subDescriptionInTeam3"></p>
+					</div>
+					<div class="col-lg-4 col-xs-6 col-sm-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+						<div class="icon"><i class="ion-ios-timer"></i></div>
+						<h4 class="title" id="subtitleInTeam5"></h4>
+						<p class="description" id="subDescriptionInTeam5"></p>
+					</div>
+					<div class="col-lg-4 col-xs-6 col-sm-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+						<div class="icon"><i class="ion-battery-half"></i></div>
+						<h4 class="title" id="subtitleInTeam6"></h4>
+						<p class="description" id="subDescriptionInTeam6"></p>
+					</div>
+					<div class="col-lg-4 col-xs-6 col-sm-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+						<div class="icon"><i class="ion-ios-photos"></i></div>
+						<h4 class="title" id="subtitleInTeam1"></h4>
+						<p class="description" id="subDescriptionInTeam1"></p>
+					</div>
+					<div class="col-lg-4 col-xs-6 col-sm-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+						<div class="icon"><i class="ion-ios-grid-view"></i></div>
+						<h4 class="title" id="subtitleInTeam2"></h4>
+						<p class="description" id="subDescriptionInTeam2"></p>
+					</div>
+					<div class="col-lg-4 col-xs-6 col-sm-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+						<div class="icon"><i class="ion-ios-analytics"></i></div>
+						<h4 class="title" id="subtitleInTeam10"></h4>
+						<p class="description" id="subDescriptionInTeam10"></p>
+					</div>
+					<div class="col-lg-4 col-xs-6 col-sm-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+						<div class="icon"><i class="ion-steam"></i></div>
+						<h4 class="title" id="subtitleInTeam9"></h4>
+						<p class="description" id="subDescriptionInTeam9"></p>
+					</div>
+					<div class="col-lg-4 col-xs-6 col-sm-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+						<div class="icon"><i class="ion-earth"></i></div>
+						<h4 class="title" id="subtitleInTeam11"></h4>
+						<p class="description" id="subDescriptionInTeam11"></p>
+					</div>
+				</div>
+			</div>
+		</section><!-- #services -->
+		<!--==========================
+		Tech Spec End
+		============================-->
+
+		<!--==========================
+		Drive Mode Start
+		============================-->
+		<section style="margin-bottom: 30px;">
+			<div class="container">
+				<header class="section-header">
+					<br>
+					<h3 id="titleInAbout"></h3>
+					<p style="margin: 0" id="descriptionInAbout"></p>
+				</header>
+
+				<div class="row">
+					<div class="col-lg-6 my-auto">
+						<!-- <img id="travelAnywhereImg" style="max-width: 600px; margin: auto; display: block; width: 90%; box-shadow: 0px 0 30px rgb(1 41 112 / 8%); border-radius: 30px;" src="website_assets/img/press_and_rotate.gif"> -->
+						<video id="travelAnywhereImg" autoplay muted loop playsinline class="img-fluid" style="max-width: 600px; margin: auto; display: block; width: 90%; box-shadow: 0px 0 30px rgb(1 41 112 / 8%); border-radius: 0px 30px 0px 30px;">
+							<source src="website_assets/img/press_and_rotate.mp4" type="video/mp4">
+							Your browser does not support HTML5 video.
+						</video>
+						<br>
+					</div>
+
+					<div class="col-lg-6">
+						<div class="row about-cols">
+							<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
+								<div class="about-col travelAnywhereDiv" onclick="travelAnywhereClicked(this, 'press_and_rotate');" style="border: 5px solid #6CD370;">
+									<h2 class="title travelAnywhere"><a id="subtitleInAbout3"></a></h2>
+									<p id="subDescriptionInAbout3"></p>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
+								<div class="about-col travelAnywhereDiv" onclick="travelAnywhereClicked(this, 'tap_and_swipe');">
+									<h2 class="title travelAnywhere"><a id="subtitleInAbout2"></a></h2>
+									<p id="subDescriptionInAbout2"></p>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 wow fadeInUp" data-wow-delay="0.1s">
+								<div class="about-col travelAnywhereDiv" onclick="travelAnywhereClicked(this, 'waypoint_autopilot');">
+									<h2 class="title travelAnywhere"><a id="subtitleInAbout1"></a></h2>
+									<p id="subDescriptionInAbout1"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<script type="text/javascript">
+			function travelAnywhereClicked(ele, name) {
+				var travelAnywhereDiv = document.getElementsByClassName("travelAnywhereDiv");
+				for (var i = 0; i < travelAnywhereDiv.length; i++) {
+					travelAnywhereDiv.item(i).style.border = "none";
+					travelAnywhereDiv.item(i).style.borderBottom = "2px solid #6CD370";
+				}
+				document.getElementById("travelAnywhereImg").src = "website_assets/img/" + name + ".mp4";
+				ele.style.border = "5px solid #6CD370";
+				if (window.screen.width <= 575) {
+					$('html, body').animate({
+						scrollTop: $("#travelAnywhereImg").offset().top - 130
+					}, 500);
+				}
+			}
+		</script>
+
+		<style type="text/css">
+			.travelAnywhere {
+				font-size: 18px;
+				color: #6CD370;
+				font-weight: bold;
+			}
+			.travelAnywhereDiv {
+				border-bottom: 2px solid #6CD370; 
+				padding: 30px;
+				margin: 3px;
+				cursor: pointer;
+			}
+			#subDescriptionInAbout1, #subDescriptionInAbout2, #subDescriptionInAbout3 {
+				font-size: 14px;
+				margin: 0px;
+			}
+		</style>
+		<!--==========================
+		Drive Mode End
+		============================-->
+
+		<!--==========================
+		Showcase Start
+		============================-->
+		<section class="wow fadeInUp" style="padding-top: 30px; background: #f7f7f7;">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 my-auto">
+						<header class="section-header">
+							<h3>
+								<span id="showcase-title" style="color: #6CD370; font-weight: bold;">Showcases</span>
+								<br>
+								<span id="showcase-subtitle">Enables to deal with different situations</span>
+							</h3>
+						</header>
+					</div>
+					<div class="col-lg-1"></div>
+					<div class="col-lg-6" style="min-height: 350px;">
+						<div class="gallery-content">
+							<div class="slider-content">
+								<figure class="shadow"><img src="website_assets/img/1.png"></figure>
+								<figure class="shadow"><img src="website_assets/img/2.png"></figure>
+								<figure class="shadow"><img src="website_assets/img/3.png"></figure>
+								<figure class="shadow"><img src="website_assets/img/4.png"></figure>
+								<figure class="shadow"><img src="website_assets/img/5.png"></figure>
+								<figure class="shadow"><img src="website_assets/img/6.png"></figure>
+								<figure class="shadow"><img src="website_assets/img/7.png"></figure>
+								<figure class="shadow"><img src="website_assets/img/8.png"></figure>
+								<figure class="shadow"><img src="website_assets/img/9.png"></figure>
+								<figure class="shadow"><img src="website_assets/img/10.png"></figure>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--==========================
+		Showcase END
+		============================-->
+
+		<!--==========================
+		Location Start
+		============================-->
+		<section id="call-to-action" class="wow fadeIn" style="background: #18d26e;">
+			<div class="container text-center">
+				<div class="row">
+					<div class="col-lg-12">
+						<h3 id="titleInCallToAction"></h3>
+						<p id="descriptionInCallToAction"></p>
+						<section id="testimonials" class="section-bg wow fadeInUp" style="background: #18d26e; padding: 0px; margin-top: 15px;">
+							<div class="container">
+								<div class="owl-carousel testimonials-carousel">
+									<div class="testimonial-item">
+										<img src="website_assets/img/map-na.png" class="testimonial-img" alt="">
+										<h3 id="subtitleInTestimonials2">美州</h3>
+									</div>
+
+									<div class="testimonial-item">
+										<img src="website_assets/img/map-asia.png" class="testimonial-img" alt="">
+										<h3 id="subtitleInTestimonials1">東南亞</h3>
+									</div>
+									<div class="testimonial-item">
+										<img src="website_assets/img/map-eu.png" class="testimonial-img" alt="">
+										<h3 id="subtitleInTestimonials3">歐州</h3>
+									</div>
+								</div>
+							</div>
+						</section><!-- #testimonials -->
+					</div>
+				</div>
+			</div>
+		</section>
+		<style type="text/css">
+			#testimonials .owl-dot.active {
+				background-color: white;
+			}
+			#call-to-action .cta-btn:hover {
+				background: white;
+				color: #18d26e;
+			}
+		</style>
+		<!--==========================
+		Location End
+		============================-->
+
+		<!--==========================
+		Use Case Start
+		============================-->
+		<section style="margin-top: 30px;">
+			<div class="container">
+				<header class="section-header wow fadeInUp">
+					<h3><span id="usecase-title" style='font-weight: bold; color: #6CD370;'>Use Cases</span></h3>
+					<p style="margin: 0; font-size: 26px; color: black; font-weight: bold;" id="usecase-description">All of examples depends on your imagination.</p>
+				</header>
+				<!-- https://www.runoob.com/ionic/ionic-icon.html -->
+				<div class="row">
+					<div class="col-lg-5 my-auto">
+						<video autoplay muted loop playsinline class="img-fluid" style="max-width: 600px; margin: auto; display: block; width: 100%; box-shadow: 0px 0 30px rgb(1 41 112 / 8%); border-radius: 30px 30px 30px 30px;">
+							<source src="website_assets/img/delivery.mp4" type="video/mp4">
+							Your browser does not support HTML5 video.
+						</video>
+						<br>
+					</div>
+					<div class="col-lg-7 my-auto">
+						<header class="section-header">
+							<h3>
+								<span id="usecase-title1" style="color: #6CD370; font-weight: bold;">DELIVERY</span>
+								<span id="usecase-subtitle1">Goods</span>
+							</h3>
+							<p id="usecase-description1">Don't tell anyone. This enables no one knows where you are</p>
+						</header>
+					</div>
+					<div class="col-lg-7 my-auto">
+						<header class="section-header">
+							<h3>
+								<span id="usecase-title2" style="color: #6CD370; font-weight: bold;">EXPLORE</span>
+								<span id="usecase-subtitle2">the world</span>
+							</h3>
+							<p id="usecase-description2">Allows you to move from point A to point B while you are at home.</p>
+						</header>
+					</div>
+					<div class="col-lg-5 my-auto">
+						<video autoplay muted loop playsinline class="img-fluid" style="max-width: 600px; margin: auto; display: block; width: 100%; box-shadow: 0px 0 30px rgb(1 41 112 / 8%); border-radius: 30px 30px 30px 30px;">
+							<source src="website_assets/img/explore.mp4" type="video/mp4">
+							Your browser does not support HTML5 video.
+						</video>
+						<br>
+					</div>
+					<div class="col-lg-5 my-auto">
+						<video autoplay muted loop playsinline class="img-fluid" style="max-width: 600px; margin: auto; display: block; width: 100%; box-shadow: 0px 0 30px rgb(1 41 112 / 8%); border-radius: 30px 30px 30px 30px;">
+							<source src="website_assets/img/own_project.mp4" type="video/mp4">
+							Your browser does not support HTML5 video.
+						</video>
+						<br>
+					</div>
+					<div class="col-lg-7 my-auto">
+						<header class="section-header">
+							<h3>
+								<span id="usecase-title3" style="color: #6CD370; font-weight: bold;">BUILD</span>
+								<span id="usecase-subtitle3">YOUR OWN PROJECT</span>
+							</h3>
+							<p id="usecase-description3">IOT advistiseing mini car / autonomous boat / CAR 2.0 satellite internet + solar system = unlimited range</p>
+						</header>
+					</div>
+				</div>
+			</div>
+		</section><!-- #services -->
+		<!--==========================
+		Use Case End
+		============================-->
+
+		<!--==========================
+		Become Possible Start
+		============================-->
+		<section id="contact" class="section-bg wow fadeInUp" style="padding-bottom: 30px;">
+			<div class="container">
+				<header class="section-header wow fadeInUp">
+					<h3><span id="becomepossible-title">How it</span> <span id="becomepossible-title0" style='font-weight: bold; color: #6CD370;'>works</span></h3>
+					<p style="margin: 0;" id="becomepossible-description">Control box can automatically detect motor and servo signals, and turn it as data to present in your mobile interface</p>
+				</header>
+				<div class="row contact-info">
+					<div class="col-md-6">
+						<div class="contact-phone">
+							<i class="ion-navigate"></i>
+							<h3 id="becomepossible-title1" style="color: black; font-weight: bold;">Motor</h3>
+							<video autoplay muted loop playsinline class="img-fluid" style="max-width: 600px; margin: auto; display: block; width: 100%; box-shadow: 0px 0 30px rgb(1 41 112 / 8%); border-radius: 30px 30px 30px 30px; margin: 30px; width: calc(100% - 60px);">
+								<source src="website_assets/img/motor.mp4" type="video/mp4">
+								Your browser does not support HTML5 video.
+							</video>
+							<p id="becomepossible-description1">The motor can simply move forward or backward. And, the control box enables you to change the frequency of motor.</p>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="contact-phone">
+							<i class="ion-load-c"></i>
+							<h3 id="becomepossible-title2" style="color: black; font-weight: bold;">Servo</h3>
+							<video autoplay muted loop playsinline class="img-fluid" style="max-width: 600px; margin: auto; display: block; width: 100%; box-shadow: 0px 0 30px rgb(1 41 112 / 8%); border-radius: 30px 30px 30px 30px; margin: 30px; width: calc(100% - 60px);">
+								<source src="website_assets/img/servo.mp4" type="video/mp4">
+								Your browser does not support HTML5 video.
+							</video>							
+							<p id="becomepossible-description2">The servo can rotate in between -80° and 80°, which the max or min is adjustable in the setting.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section><!-- #contact -->
+		<!--==========================
+		Become Possible END
+		============================-->
+
+		<!--==========================
+		Universal Start
+		============================-->
+		<section id="facts"  class="wow fadeIn" style="background-image: url('website_assets/img/HKbackground.jpeg');">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 my-auto" data-aos="zoom-out" data-aos-delay="100">
+						<video autoplay muted loop playsinline class="img-fluid" style="box-shadow: 0px 0 30px rgb(1 41 112 / 8%); border-radius: 30px 0px 30px 0px;">
+							<source src="website_assets/img/universal.mp4" type="video/mp4">
+							Your browser does not support HTML5 video.
+						</video>
+						<!-- <img src="website_assets/img/universal.gif" class="img-fluid" style="box-shadow: 0px 0 30px rgb(1 41 112 / 8%); border-radius: 30px;"> -->
+					</div>
+					<div class="col-lg-7 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
+						<header class="section-header">
+							<h3>
+								<span id="marketplace-title"></span>
+								<br>
+								<span id="marketplace-title2" style="color: #6CD370; font-weight: bold;"></span>
+							</h3>
+							<p style="margin: 0" id="descriptionInAboutFacts"></p>
+						</header>
+						<div>
+							<h5>
+								<i class="ion-pie-graph"></i> <span id="marketplace-reason-title1"></span>
+							</h5>
+							<p id="marketplace-description-title1"></p>
+						</div>
+						<div>
+							<h5>
+								<i class="ion-pie-graph"></i> <span id="marketplace-reason-title2"></span>
+							</h5>
+							<p id="marketplace-description-title2"></p>
+						</div>
+						<div>
+							<h5>
+								<i class="ion-pie-graph"></i> <span id="marketplace-reason-title3"></span>
+							</h5>
+							<p id="marketplace-description-title3"></p>
+						</div>
+					</div>
+				</div>
+
+				<br><hr><br>
+				<header class="section-header">
+					<h3 id="titleInFacts"></h3>
+					<!-- <p id="descriptionInFacts"></p> -->
+				</header>
+				<div class="row counters">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-12 text-center">
+						<span data-toggle="counter-up">2,000,000</span>
+						<p id="subtitleInFacts2"></p>
+						<br>
+						<span data-toggle="counter-up">300,000</span>
+						<p id="subtitleInFacts5"></p>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-12 text-center my-auto">
+						<button id="universal-pre-order-btn" class="tutorialButton" onclick='pre_order_button_click("2");' style="margin-top: 30px; margin-bottom: 30px;">PRE-ORDER NOW</button>
+					</div>
+				</div>
+				<br><hr><br>			
+			</div>
+		</section><!-- #facts -->
+
+		<style type="text/css">
+			.d-flex {
+				display: flex!important;
+			}
+			#facts h5 {
+				margin: 0px;
+			}
+			#facts i {
+				color: #18d26e;
+			}
+			#marketplace-reason-title1, #marketplace-reason-title2, #marketplace-reason-title3 {
+				font-weight: bold; 
+				color: #18d26e;
+			}
+			#marketplace-description-title1, #marketplace-description-title2, #marketplace-description-title3 {
+				padding: 0; 
+				margin: 0 0 20px 0;
+				padding-left: 23px;
+			}
+			.tutorialButton {
+				font-family: "Montserrat", sans-serif;
+				font-size: 16px;
+				font-weight: 500;
+				color: white;
+				letter-spacing: 1px;
+				line-height: 15px;
+				border: 2px solid white;
+				border-radius: 25px;
+				background: #18d26e;
+				transition: all 0.5s ease 0s;
+				padding: 8px 28px;
+				height: 60px;
+				width: 300px;
+			}
+			.tutorialButton:hover {
+				color: #18d26e;
+				background: white;
+				border: 2px solid #6CD370;
+				cursor: pointer;
+			}
+		</style>
+		<!--==========================
+		Universal End
+		============================-->
+
+	  </main>
+
+	<!--==========================
+	Footer
+	============================-->
+	<footer id="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-lg-4 col-md-6 footer-info">
+						<h4 id="subtitleInFooter1"></h4>
+						<p id="subDescriptionInFooter1"></p>
+					</div>
+
+					<!--           <div class="col-lg-3 col-md-6 footer-links">
+					<h4>了解更多</h4>
+					<ul>
+					<li><i class="ion-ios-arrow-right"></i> <a href="#">Home</a></li>
+					<li><i class="ion-ios-arrow-right"></i> <a href="#">About us</a></li>
+					<li><i class="ion-ios-arrow-right"></i> <a href="#">Services</a></li>
+					<li><i class="ion-ios-arrow-right"></i> <a href="#">Terms of service</a></li>
+					<li><i class="ion-ios-arrow-right"></i> <a href="#">Privacy policy</a></li>
+					</ul>
+					</div> -->
+
+					<div class="col-lg-4 col-md-6 footer-contact">
+						<!--             <h4 id="subtitleInFooter2">聯絡我們</h4>
+						<span id="subDescriptionInFooter2">香港數碼港二座十二樓 1205 - 1208 室 103 號</span>
+						<br> -->
+						<!--             <span>+852 3500 3961</span>
+						<br> -->
+
+						<!--             <br><br>
+						<div class="social-links">
+						<a href="https://www.facebook.com/easypurchasehk/" class="facebook"><i class="fa fa-facebook"></i></a>
+						<a href="https://www.instagram.com/outbuy_official/" class="instagram"><i class="fa fa-instagram"></i></a>
+						<a href="https://www.linkedin.com/company/easy-purchase-limited" class="linkedin"><i class="fa fa-linkedin"></i></a>
+						</div> -->
+					</div>
+
+					<div class="col-lg-4 col-md-6 footer-newsletter">
+						<h4 id="subtitleInFooter3">應用場境</h4>
+						<div class="social-links">
+							<a href="https://www.facebook.com/innomati" class="facebook"><i class="fa fa-facebook"></i></a>
+							<a href="https://www.instagram.com/innomati_official" class="instagram"><i class="fa fa-instagram"></i></a>
+							<!-- <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a> -->
+						</div>
+						<br>
+						<span>cs@innomati.com</span>
+						<!-- <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem marada parida nodela caramase seza.</p> -->
+						<!--             <form action="" method="post">
+						<input type="email" name="email"><input type="submit"  value="Subscribe">
+						</form> -->
+						<!--             <div class="page-content page-container" id="page-content">
+						<div class="padding">
+						<div class="row container d-flex justify-content-center">
+						<div class="template-demo mt-2"> 
+						<button class="btn btn-outline-dark btn-icon-text"><a id="memberCenterInFooter">
+						<i class="fa fa-desktop btn-icon-prepend mdi-36px"></i> 
+						<span class="d-inline-block text-left download-app-btn" id="subDescriptionInFooter3"> 
+						<small class="font-weight-light d-block">立即下載於</small> App Store 
+						</span> 
+						</a></button> 
+						<button class="btn btn-outline-dark btn-icon-text"><a id="marketInFooter">
+						<i class="fa fa-video-camera btn-icon-prepend mdi-36px"></i> 
+						<span class="d-inline-block text-left download-app-btn" id="subDescriptionInFooter4"> 
+						<small class="font-weight-light d-block">立即下載於</small> Google Play 
+						</span>
+						</a></button> 
+						</div>
+						</div>
+						</div>
+						</div> -->
+						<style type="text/css">
+							.mdi-36px {
+								font-size: 39px;
+								margin-right: 10px;
+							}
+							.download-app-btn {
+								min-width:100px;
+							}
+							.btn {
+								margin-bottom:10px;
+							}
+						</style>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="copyright" id="titleInCopyright">Copyright © 2022 All rights reserved</div>
+			<div class="credits">
+				<a href="#" id="descriptionInCopyright"><strong>易買科技有限公司</strong> 版權所有</a>
+			</div>
+		</div>
+	</footer><!-- #footer -->
+
+	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+	<!-- Uncomment below i you want to use a preloader -->
+	<!-- <div id="preloader"></div> -->
+
+	<script type="text/javascript">
+
+		function is_weixin_JSAPI() {
+			var ua = window.navigator.userAgent.toLowerCase(); 
+			return ua.match(/MicroMessenger/i) == 'micromessenger';
+		}
+
+		if (is_weixin_JSAPI()) {
+			document.getElementById("backgroundVideo").style.display = "none";
+			document.getElementById("backgroundImage").style.display = "block";
+		}
+
+		document.getElementById("backgroundVideo").play();
+
+		var enDict = { 	"languageTitle": '<span class="flag-icon flag-icon-us"> </span>  Eng',
+						"memberCenter": "Control Panel",
+						"apiDocumentation": "API documentation",
+						// "tutorialTitle": "Live Stream Trial",
+						// "tutorial-register": "China",
+						// "tutorial-product": "Hong Kong",
+						// "tutorial-buyer": "Singapore",
+						// "tutorial-transaction": "United Kingdom",
+						// "tutorial-delivery": "United States",
+						"titleInIntro": "A Mini Car with NO Control Range",
+						"descriptionInIntro": "30 mph Top Speed | 35-Mile Range | Autonomous | Virtualization",
+						"learnMoreInIntro": "Learn more",
+						"titleInServices": "Tech Specs",
+						"titleInAbout": "Stay Home, Travel Anywhere",
+						"descriptionInAbout": 'The flexible drive modes give you 3 choices to select',
+						"descriptionInAboutFacts": 'Steps to Make It Works',
+						"subtitleInAbout1": "Waypoint Autopilot",
+						"subDescriptionInAbout1": "Autonomous",
+						"subtitleInAbout2": "Tap & Swipe",
+						"subDescriptionInAbout2": "Manual",
+						"subtitleInAbout3": "Press & Rotate",
+						"subDescriptionInAbout3": "Manual",
+						"titleInCallToAction": "Remote Control",
+						"descriptionInCallToAction": "is no longer limited by distance even you are in the US, China or the UK",
+						"Try out our cost calculator": "Try out our cost calculator",
+						"Selling Price": "Selling Price",
+						"Weight": "Weight",
+						"Tax": "Tax",
+						"Shipping": "Shipping",
+						"Commission": "Commission",
+						"progressCost1InSkills": "COST",
+						"titleInFacts": "We Are Turning RC Cars & Boats to Intelligent",
+						// "descriptionInFacts": "Real Transactions of Easy Purchase (as of Apr 2020)",
+						"subtitleInFacts2": "Number of RC Cars in 2021",
+						"subtitleInFacts5": "Number of RC Boats in 2021",
+						"subtitleInTestimonials1": "Southeast Asia",
+						"subtitleInTestimonials2": "America",
+						"subtitleInTestimonials3": "Europe",
+						"subDescriptionInTeam1": "Up to 3kg",
+						"subtitleInTeam1": "Load Weight",
+						"subDescriptionInTeam2": "30cm x 20cm x 5cm",
+						"subtitleInTeam2": "Load Space ",
+						"subDescriptionInTeam3": "35 miles",
+						"subtitleInTeam3": "Avg. Range",
+						"subDescriptionInTeam4": "30 mph",
+						"subtitleInTeam4": "Max. Speed",
+						"subDescriptionInTeam5": "60 mins on full speed",
+						"subtitleInTeam5": "Max. Time",
+						"subDescriptionInTeam6": "> 50 hours",
+						"subtitleInTeam6": "Standby Time",
+						"subDescriptionInTeam9": "API & Internet Sharing",
+						"subtitleInTeam9": "Extendables",
+						"subDescriptionInTeam10": "Waterproof",
+						"subtitleInTeam10": "IP4",
+						"subtitleInTeam11": "Wireless",
+						"subDescriptionInTeam11": "5G / 4G LTE",
+						// "subtitleInContact1": "Address",
+						// "subDescriptionInContact1": "103, Unit 1205-8, 12/F, Cyberport 2<br>No. 100 Cyberport Road, Hong Kong",
+						// "subtitleInContact3": "Contact Us",
+						// "subtitleInContact4": "Announcement",
+						// "subDescriptionInContact4": "Easy Purchase released mobile application called OutBUY on Aug 8, 2019 specifically for Cross-Border E-commerce in China including features of customs declaration, licensed e-commerce platform, logistics service and cross-border money exchange service for all overseas retailers.",
+						"subtitleInFooter1": "INNOMATI",
+						"subDescriptionInFooter1": "An IOT company has created an innovative control box for consumer, commercial and professional buyers. It enables features of long range photography, goods delivery, academic research, etc. Users can also customize their needs by the extendable flexibilities of open API and WiFi sharing.",
+						// "subtitleInFooter2": "Contact Us",
+						// "subDescriptionInFooter2": "103, Unit 1205-8, 12/F, Cyberport 2<br>No. 100 Cyberport Road, Hong Kong",
+						"subtitleInFooter3": "Social News",
+						// "subDescriptionInFooter3": '<small class="font-weight-light d-block">Download now on</small> App Store',
+						// "subDescriptionInFooter4": '<small class="font-weight-light d-block">Download now on</small> Google Play',
+						"titleInCopyright": "Copyright © 2022",
+						"descriptionInCopyright": "<strong>Easy Purchase Limited</strong> All rights reserved",
+						"Have Hong Kong Business Registration": "Have Hong Kong Business Registration",
+						"marketplace-title": "If Design Is Not Your Favorite",
+						"marketplace-title2": "Our Technology Is Universal",
+						"marketplace-reason-title1": "Grab",
+						"marketplace-description-title1": "Take out the control box from our car",
+						"marketplace-reason-title2": "Plug",
+						"marketplace-description-title2": "Drop the box to your device and connect two wirings, servo and ESC",
+						"marketplace-reason-title3": "Go",
+						"marketplace-description-title3": "The innovative features will be presented to you identically",
+						"Payment and Exchange": "Payment and Exchange",
+						"Total Cost": "Total Cost",
+						"showcase-title": "Showcase",
+						"showcase-subtitle": "Enables to Deal with Different Situations",
+						"PRE-ORDER NOW": "PRE-ORDER NOW",
+						"Our pre-order will open on Jul 18, 2022. Please come back again": "Our pre-order will open on Jul 18, 2022. Please come back again",
+						"usecase-title": "Use Cases",
+						"usecase-description": "All of examples depends on your imagination",
+						"usecase-title1": "DELIVERY",
+						"usecase-subtitle1": "Goods",
+						"usecase-description1": "Don't tell anyone. This enables no one knows where you are",
+						"usecase-title2": "EXPLORE",
+						"usecase-subtitle2": "the world",
+						"usecase-description2": "Allows you to move from point A to point B while you are at home",
+						"usecase-title3": "BUILD",
+						"usecase-subtitle3": "YOUR OWN PROJECT",
+						"usecase-description3": "IOT advertising mini car / autonomous boat / CAR 2.0 satellite internet + solar system = unlimited range",
+						"wheretocontrol-title": "How to",
+						"wheretocontrol-title0": "Control",
+						"wheretocontrol-description": "The control panel is completely diversity",
+						"wheretocontrol-title1": "CAR PLAY",
+						"wheretocontrol-description1": "Use Car Play to control your mini car",
+						"wheretocontrol-title2": "MOBILE",
+						"wheretocontrol-description2": "Or use your mobile. Remote controller is no longer needed",
+						"becomepossible-title": "How it",
+						"becomepossible-title0": "works",
+						"becomepossible-description": "Control box can automatically detect motor and servo signals, and turn it as data to present in your mobile interface",
+						"becomepossible-title1": "Motor",
+						"becomepossible-description1": "The motor can simply move forward or backward. And, the control box enables you to change the frequency of motor.",
+						"becomepossible-title2": "Servo",
+						"becomepossible-description2": "The servo can rotate in between -80° and 80°, which the max or min is adjustable in the setting.",
+						};
+
+		var hantDict = {"languageTitle": '<span class="flag-icon flag-icon-hk"> </span>  繁',
+						"memberCenter": "控制板",
+						"apiDocumentation": "API 文檔",
+						// "tutorialTitle": "直播試用",
+						// "tutorial-register": "中國",
+						// "tutorial-product": "香港",
+						// "tutorial-buyer": "新加坡",
+						// "tutorial-transaction": "英國",
+						// "tutorial-delivery": "美國",
+						"titleInIntro": "沒有控制範圍的小型車",
+						"descriptionInIntro": "最高時速30英里 | 35英里範圍 | 無人 | 虛擬化",
+						"learnMoreInIntro": "了解更多",
+						"titleInServices": "技術規格",
+						"titleInAbout": "在家中，也可到處旅行",
+						"descriptionInAbout": "靈活的駕駛模式給你 3 種選擇",
+						"descriptionInAboutFacts": '運作步驟',
+						"subtitleInAbout1": "航點自動駕駛",
+						"subDescriptionInAbout1": "自主控制",
+						"subtitleInAbout2": "點擊 & 滑動",
+						"subDescriptionInAbout2": "手動控制",
+						"subtitleInAbout3": "按下 & 旋轉",
+						"subDescriptionInAbout3": "手動控制",
+						"titleInCallToAction": "遠程控制",
+						"descriptionInCallToAction": "不再受距离限制。即使您在美國、中國或英國",
+						"Try out our cost calculator": "試試我們的成本計數機",
+						"Selling Price": "零售價",
+						"Weight": "重量",
+						"Tax": "稅項",
+						"Shipping": "運費",
+						"Commission": "手續費",
+						"progressCost1InSkills": "成本",
+						"titleInFacts": "我們正在將遙控車和船智能化",
+						// "descriptionInFacts": "易買科技截至2020年04月的真實數據",
+						"subtitleInFacts2": "2021年遙控車數量",
+						"subtitleInFacts5": "2021年遙控船數量",
+						"subtitleInTestimonials1": "東南亞",
+						"subtitleInTestimonials2": "美州",
+						"subtitleInTestimonials3": "歐州",
+						"subDescriptionInTeam1": "最大為 3 公斤",
+						"subtitleInTeam1": "載重",
+						"subDescriptionInTeam2": "30 厘米(cm) x 20 厘米(cm) x 5 厘米(cm)",
+						"subtitleInTeam2": "裝載空間",
+						"subDescriptionInTeam3": "35 英里",
+						"subtitleInTeam3": "平均距離",
+						"subDescriptionInTeam4": "30 英里／小時",
+						"subtitleInTeam4": "最大速度",
+						"subDescriptionInTeam5": "60 分鐘（全速）",
+						"subtitleInTeam5": "最大時間",
+						"subDescriptionInTeam6": "> 50 小時",
+						"subtitleInTeam6": "待機時間",
+						"subDescriptionInTeam9": "API接口 & 互聯網共享",
+						"subtitleInTeam9": "可擴展性",
+						"subDescriptionInTeam10": "防水",
+						"subtitleInTeam10": "IP4",
+						"subtitleInTeam11": "無線",
+						"subDescriptionInTeam11": "5G / 4G LTE",
+						// "subtitleInContact1": "地址",
+						// "subDescriptionInContact1": "香港數碼港二座十二樓 1205 - 1208 室 103 號",
+						// "subtitleInContact3": "聯絡我們",
+						// "subtitleInContact4": "最新公告",
+						// "subDescriptionInContact4": "2019年8月8日，易買科技有限公司發佈名為 藕吧（OutBUY） 公告，使用的「跨境電商個人消費物品通道」功能、中國海關總署介面、電商企業，物流服務，兩地支付交易功能將正式前端開放用家。",
+						"subtitleInFooter1": "INNOMATI",
+						"subDescriptionInFooter1": "一家物聯網公司為消費者、商業和專業買家創造了一個創新的控制盒子。具有遠距攝影、貨物運輸、學術研究等功能。用戶還可以通過開放性API及WiFi共享的可擴展靈活性來定制他們的需求。",
+						// "subtitleInFooter2": "聯絡我們",
+						// "subDescriptionInFooter2": "香港數碼港二座十二樓 1205 - 1208 室 103 號",
+						"subtitleInFooter3": "社交新聞",
+						// "subDescriptionInFooter3": '<small class="font-weight-light d-block">立即下載於</small> App Store',
+						// "subDescriptionInFooter4": '<small class="font-weight-light d-block">立即下載於</small> Google Play',
+						"titleInCopyright": "版權 © 2022",
+						"descriptionInCopyright": "<strong>易買科技有限公司</strong> 版權所有",
+						"Have Hong Kong Business Registration": "適合香港公司用戶",
+						"marketplace-title": "如設計不是您的喜好",
+						"marketplace-title2": "我們的技術是通用",
+						"marketplace-reason-title1": "提取",
+						"marketplace-description-title1": "從我們車上拿取控制盒子",
+						"marketplace-reason-title2": "裝上",
+						"marketplace-description-title2": "將盒子放到您的設備上並連接兩條接線，轉向機和摩打",
+						"marketplace-reason-title3": "開始",
+						"marketplace-description-title3": "創新功能將會同樣地呈現給您",
+						"Payment and Exchange": "支付與外匯",
+						"Total Cost": "總成本",
+						"showcase-title": "展示",
+						"showcase-subtitle": "能夠應對不同情況",
+						"PRE-ORDER NOW": "立即預購",
+						"Our pre-order will open on Jul 18, 2022. Please come back again": "我們的預購將於 2022 年 7 月 18 日開始，請再來一次",
+						"usecase-title": "使用場景",
+						"usecase-description": "例子取決於您的想像力",
+						"usecase-title1": "送",
+						"usecase-subtitle1": "貨",
+						"usecase-description1": "不要告訴任何人。這樣的方式沒人知道你在哪",
+						"usecase-title2": "探索",
+						"usecase-subtitle2": "世界",
+						"usecase-description2": "使您可以在家時，從A點移到B點",
+						"usecase-title3": "構建",
+						"usecase-subtitle3": "您的項目",
+						"usecase-description3": "物聯網廣告小車 / 無人船 / 車2.0之衛星互聯網 + 太陽能 = 無限續航",
+						"wheretocontrol-title": "如何",
+						"wheretocontrol-title0": "控制",
+						"wheretocontrol-description": "控制面板是完全多樣化",
+						"wheretocontrol-title1": "CAR PLAY",
+						"wheretocontrol-description1": "使用Car Play控制您的小車",
+						"wheretocontrol-title2": "手機",
+						"wheretocontrol-description2": "或使用您的手機。不再需要遙控器",
+						"becomepossible-title": "怎麼",
+						"becomepossible-title0": "運作",
+						"becomepossible-description": "控制盒能自動檢測馬達和舵機的信號，並將其作為數據及呈現在您的移動界面中",
+						"becomepossible-title1": "馬達",
+						"becomepossible-description1": "馬達能輕鬆地向前或向後移動。並且，控制盒能讓您改變馬達的頻率",
+						"becomepossible-title2": "舵機",
+						"becomepossible-description2": "舵機可以在-80°和80°之間旋轉，最大值或最小值可在設定中調節。",
+						};
+
+		var hansDict = {"languageTitle": '<span class="flag-icon flag-icon-cn"> </span>  简',
+						"memberCenter": "控制板",
+						"apiDocumentation": "API 文档",
+						// "tutorialTitle": "直播试用",
+						// "tutorial-register": "中国",
+						// "tutorial-product": "香港",
+						// "tutorial-buyer": "新加坡",
+						// "tutorial-transaction": "英国",
+						// "tutorial-delivery": "美国",
+						"titleInIntro": "沒有控制範圍的小型車",
+						"descriptionInIntro": "最高时速30英里 | 35英里范围 | 无人 | 虚拟化",
+						"learnMoreInIntro": "了解更多",
+						"titleInServices": "技术规格",
+						"titleInAbout": "在家中，也可到处旅行",
+						"descriptionInAbout": "灵活的驾驶模式给你 3 种选择",
+						"descriptionInAboutFacts": '运作步骤',
+						"subtitleInAbout1": "航点自动驾驶",
+						"subDescriptionInAbout1": "自主控制",
+						"subtitleInAbout2": "点击 & 滑动",
+						"subDescriptionInAbout2": "手动控制",
+						"subtitleInAbout3": "按下 & 旋转",
+						"subDescriptionInAbout3": "手动控制",
+						"titleInCallToAction": "远程控制",
+						"descriptionInCallToAction": "不再受距离限制。即使您在美国、中国或英国",
+						"Try out our cost calculator": "试试我们的成本计数机",
+						"Selling Price": "零售价",
+						"Weight": "重量",
+						"Tax": "税项",
+						"Shipping": "运费",
+						"Commission": "手续费",
+						"progressCost1InSkills": "成本",
+						"titleInFacts": "我们正在将遥控车和船智能化",
+						// "descriptionInFacts": "易买科技截至2020年04月的真实数据",
+						"subtitleInFacts2": "2021年遥控车数量",
+						"subtitleInFacts5": "2021年遥控船数量",
+						"subtitleInTestimonials1": "东南亚",
+						"subtitleInTestimonials2": "美州",
+						"subtitleInTestimonials3": "欧州",
+						"subDescriptionInTeam1": "最大为 3 公斤",
+						"subtitleInTeam1": "载重",
+						"subDescriptionInTeam2": "30 厘米(cm) x 20 厘米(cm) x 5 厘米(cm)",
+						"subtitleInTeam2": "装载空间",
+						"subDescriptionInTeam3": "35 英里",
+						"subtitleInTeam3": "平均距离",
+						"subDescriptionInTeam4": "30 英里／小时",
+						"subtitleInTeam4": "最大速度",
+						"subDescriptionInTeam5": "60 分钟（全速）",
+						"subtitleInTeam5": "最大时间",
+						"subDescriptionInTeam6": "> 50 小时",
+						"subtitleInTeam6": "待机时间",
+						"subDescriptionInTeam9": "API接口 及 互联网共享",
+						"subtitleInTeam9": "可扩展性",
+						"subDescriptionInTeam10": "防水",
+						"subtitleInTeam10": "IP4",
+						"subtitleInTeam11": "无线",
+						"subDescriptionInTeam11": "5G / 4G LTE",
+						// "subtitleInContact1": "地址",
+						// "subDescriptionInContact1": "香港数码港二座十二楼 1205 - 1208 室 103 号",
+						// "subtitleInContact3": "联络我们",
+						// "subtitleInContact4": "最新公告",
+						// "subDescriptionInContact4": "2019年8月8日，易买科技有限公司发布名为 藕吧（OutBUY） 公告，使用的「跨境电商个人消费物品通道」功能、中国海关总署介面、电商企业，物流服务，两地支付交易功能将正式前端开放用家。",
+						"subtitleInFooter1": "INNOMATI",
+						"subDescriptionInFooter1": "一家物联网公司为消费者、商业和专业买家创造了一个创新的控制盒子。具有远距摄影、货物运输、学术研究等功能。用户还可以通过开放性API及WiFi共享的可扩展灵活性来定制他们的需求。",
+						// "subtitleInFooter2": "联络我们",
+						// "subDescriptionInFooter2": "香港数码港二座十二楼 1205 - 1208 室 103 号",
+						"subtitleInFooter3": "社交新闻",
+						// "subDescriptionInFooter3": '<small class="font-weight-light d-block">立即下载于</small> App Store',
+						// "subDescriptionInFooter4": '<small class="font-weight-light d-block">立即下载于</small> 应用宝',
+						"titleInCopyright": "版权 © 2022",
+						"descriptionInCopyright": "<strong>易买科技有限公司</strong> 版权所有",
+						"Have Hong Kong Business Registration": "适合香港公司用户",
+						"marketplace-title": "如设计不是您的喜好",
+						"marketplace-title2": "我们的技术是通用",
+						"marketplace-reason-title1": "提取",
+						"marketplace-description-title1": "从我们车上拿取控制盒子",
+						"marketplace-reason-title2": "装上",
+						"marketplace-description-title2": "将盒子放到您的设备上并连接两条接线，转向机和摩打",
+						"marketplace-reason-title3": "开始",
+						"marketplace-description-title3": "创新功能将会同样地呈现给您",
+						"Payment and Exchange": "支付与外汇",
+						"Total Cost": "总成本",
+						"showcase-title": "展示",
+						"showcase-subtitle": "能够应对不同情况",
+						"PRE-ORDER NOW": "立即预购",
+						"Our pre-order will open on Jul 18, 2022. Please come back again": "我们的预购将于 2022 年 7 月 18 日开始，请再来一次",
+						"usecase-title": "使用场景",
+						"usecase-description": "例子取决于您的想像力",
+						"usecase-title1": "送",
+						"usecase-subtitle1": "货",
+						"usecase-description1": "不要告诉任何人。这样的方式没人知道你在哪",
+						"usecase-title2": "探索",
+						"usecase-subtitle2": "世界",
+						"usecase-description2": "使您可以在家时，从A点移到B点",
+						"usecase-title3": "构建",
+						"usecase-subtitle3": "您的项目",
+						"usecase-description3": "物联网广告小车 / 无人船 / 车2.0之卫星互联网 + 太阳能 = 无限续航",
+						"wheretocontrol-title": "如何",
+						"wheretocontrol-title0": "控制",
+						"wheretocontrol-description": "控制面板是完全多样化",
+						"wheretocontrol-title1": "CAR PLAY",
+						"wheretocontrol-description1": "使用Car Play控制您的小车",
+						"wheretocontrol-title2": "手机",
+						"wheretocontrol-description2": "或使用您的手机。不再需要遥控器",
+						"becomepossible-title": "怎么",
+						"becomepossible-title0": "运作",
+						"becomepossible-description": "控制盒能自动检测马达和舵机的信号，并将其作为数据及呈现在您的移动界面中",
+						"becomepossible-title1": "马达",
+						"becomepossible-description1": "马达能轻松地向前或向后移动。并且，控制盒能让您改变马达的频率",
+						"becomepossible-title2": "舵机",
+						"becomepossible-description2": "舵机可以在-80°和80°之间旋转，最大值或最小值可在设定中调节。",
+						};
+
+		var language = window.localStorage.getItem('lang') == null ? "en" : window.localStorage.getItem('lang');
+
+		var params_list = window.location.search.substring(1).split("&");
+		var params = {};
+		for (var i = 0; i < params_list.length; i++) { 
+			var param = params_list[i].split("=");
+			params[param[0]] = param[1];
+		}
+		var urlLanguage = params["lang"];
+		if (urlLanguage == "hant" || urlLanguage == "hans" || urlLanguage == "en") {
+			language = urlLanguage;
+			window.localStorage.setItem('lang', urlLanguage);
+		}
+
+		function getLocalized(word) {
+			if (language == "en") {
+				return word in enDict ? enDict[word] : "";
+			} else if (language == "hans") {
+				return word in hansDict ? hansDict[word] : "";
+			}
+			return word in hantDict ? hantDict[word] : word;
+		}
+
+		document.getElementById("languageTitle").innerHTML = getLocalized("languageTitle");
+		document.getElementById("memberCenter").innerHTML = getLocalized("memberCenter");
+		document.getElementById("apiDocumentation").innerHTML = getLocalized("apiDocumentation");
+		// document.getElementById("tutorialTitle").innerHTML = getLocalized("tutorialTitle");
+		// document.getElementById("tutorial-register").innerHTML = getLocalized("tutorial-register");
+		// document.getElementById("tutorial-product").innerHTML = getLocalized("tutorial-product");
+		// document.getElementById("tutorial-buyer").innerHTML = getLocalized("tutorial-buyer");
+		// document.getElementById("tutorial-transaction").innerHTML = getLocalized("tutorial-transaction");
+		// document.getElementById("tutorial-delivery").innerHTML = getLocalized("tutorial-delivery");
+		document.getElementById("titleInIntro").innerHTML = getLocalized("titleInIntro");
+		// document.getElementById("titleInIntro2").innerHTML = getLocalized("titleInIntro");
+		document.getElementById("descriptionInIntro").innerHTML = getLocalized("descriptionInIntro");
+		// document.getElementById("descriptionInIntro2").innerHTML = getLocalized("descriptionInIntro");
+		document.getElementById("learnMoreInIntro").innerHTML = getLocalized("learnMoreInIntro");
+		document.getElementById("learnMoreInIntro1").innerHTML = getLocalized("PRE-ORDER NOW");
+		// document.getElementById("learnMoreInIntro2").innerHTML = getLocalized("learnMoreInIntro");
+		document.getElementById("titleInServices").innerHTML = getLocalized("titleInServices");
+		document.getElementById("titleInAbout").innerHTML = getLocalized("titleInAbout");
+		document.getElementById("descriptionInAbout").innerHTML = getLocalized("descriptionInAbout");
+		document.getElementById("descriptionInAboutFacts").innerHTML = getLocalized("descriptionInAboutFacts");
+		document.getElementById("subtitleInAbout1").innerHTML = getLocalized("subtitleInAbout1");
+		document.getElementById("subDescriptionInAbout1").innerHTML = getLocalized("subDescriptionInAbout1");
+		document.getElementById("subtitleInAbout2").innerHTML = getLocalized("subtitleInAbout2");
+		document.getElementById("subDescriptionInAbout2").innerHTML = getLocalized("subDescriptionInAbout2");
+		document.getElementById("subtitleInAbout3").innerHTML = getLocalized("subtitleInAbout3");
+		document.getElementById("subDescriptionInAbout3").innerHTML = getLocalized("subDescriptionInAbout3");
+		document.getElementById("titleInCallToAction").innerHTML = getLocalized("titleInCallToAction");
+		document.getElementById("descriptionInCallToAction").innerHTML = getLocalized("descriptionInCallToAction");
+		document.getElementById("titleInFacts").innerHTML = getLocalized("titleInFacts");
+		// document.getElementById("descriptionInFacts").innerHTML = getLocalized("descriptionInFacts");
+		document.getElementById("subtitleInFacts2").innerHTML = getLocalized("subtitleInFacts2");
+		document.getElementById("subtitleInFacts5").innerHTML = getLocalized("subtitleInFacts5");
+		document.getElementById("subtitleInTestimonials1").innerHTML = getLocalized("subtitleInTestimonials1");
+		document.getElementById("subtitleInTestimonials2").innerHTML = getLocalized("subtitleInTestimonials2");
+		document.getElementById("subtitleInTestimonials3").innerHTML = getLocalized("subtitleInTestimonials3");
+		document.getElementById("subDescriptionInTeam1").innerHTML = getLocalized("subDescriptionInTeam1");
+		document.getElementById("subtitleInTeam1").innerHTML = getLocalized("subtitleInTeam1");
+		document.getElementById("subDescriptionInTeam2").innerHTML = getLocalized("subDescriptionInTeam2");
+		document.getElementById("subtitleInTeam2").innerHTML = getLocalized("subtitleInTeam2");
+		document.getElementById("subDescriptionInTeam3").innerHTML = getLocalized("subDescriptionInTeam3");
+		document.getElementById("subtitleInTeam3").innerHTML = getLocalized("subtitleInTeam3");
+		document.getElementById("subDescriptionInTeam4").innerHTML = getLocalized("subDescriptionInTeam4");
+		document.getElementById("subtitleInTeam4").innerHTML = getLocalized("subtitleInTeam4");
+		document.getElementById("subDescriptionInTeam5").innerHTML = getLocalized("subDescriptionInTeam5");
+		document.getElementById("subtitleInTeam5").innerHTML = getLocalized("subtitleInTeam5");
+		document.getElementById("subDescriptionInTeam6").innerHTML = getLocalized("subDescriptionInTeam6");
+		document.getElementById("subtitleInTeam6").innerHTML = getLocalized("subtitleInTeam6");
+		document.getElementById("subDescriptionInTeam9").innerHTML = getLocalized("subDescriptionInTeam9");
+		document.getElementById("subtitleInTeam9").innerHTML = getLocalized("subtitleInTeam9");
+		document.getElementById("subDescriptionInTeam10").innerHTML = getLocalized("subtitleInTeam10");
+		document.getElementById("subtitleInTeam10").innerHTML = getLocalized("subDescriptionInTeam10");
+		document.getElementById("subDescriptionInTeam11").innerHTML = getLocalized("subDescriptionInTeam11");
+		document.getElementById("subtitleInTeam11").innerHTML = getLocalized("subtitleInTeam11");
+		// document.getElementById("subtitleInContact1").innerHTML = getLocalized("subtitleInContact1");
+		// document.getElementById("subDescriptionInContact1").innerHTML = getLocalized("subDescriptionInContact1");
+		// document.getElementById("subtitleInContact3").innerHTML = getLocalized("subtitleInContact3");
+		// document.getElementById("subtitleInContact4").innerHTML = getLocalized("subtitleInContact4");
+		// document.getElementById("subDescriptionInContact4").innerHTML = getLocalized("subDescriptionInContact4");
+		document.getElementById("subtitleInFooter1").innerHTML = getLocalized("subtitleInFooter1");
+		document.getElementById("subDescriptionInFooter1").innerHTML = getLocalized("subDescriptionInFooter1");
+		// document.getElementById("subtitleInFooter2").innerHTML = getLocalized("subtitleInFooter2");
+		// document.getElementById("subDescriptionInFooter2").innerHTML = getLocalized("subDescriptionInFooter2");
+		document.getElementById("subtitleInFooter3").innerHTML = getLocalized("subtitleInFooter3");
+		// document.getElementById("subDescriptionInFooter3").innerHTML = getLocalized("memberCenter");
+		// document.getElementById("subDescriptionInFooter4").innerHTML = getLocalized("tutorialTitle");
+		document.getElementById("titleInCopyright").innerHTML = getLocalized("titleInCopyright");
+		document.getElementById("descriptionInCopyright").innerHTML = getLocalized("descriptionInCopyright");
+
+		// document.getElementById("androidDownloadInFooter").href = getLocalized("androidDownloadInFooter");
+
+		document.getElementById('memberCenter').href = "live.html?lang=" + language;
+		document.getElementById('apiDocumentation').href = "api.html?lang=" + language;
+		// document.getElementById('memberCenterInFooter').href = "live.html?lang=" + language;
+		// document.getElementById('marketInFooter').href = "./enquiry.html";
+
+		document.getElementById('marketplace-title').innerHTML = getLocalized('marketplace-title');   
+		document.getElementById('marketplace-title2').innerHTML = getLocalized('marketplace-title2');
+		document.getElementById('marketplace-reason-title1').innerHTML = getLocalized('marketplace-reason-title1'); 
+		document.getElementById('marketplace-description-title1').innerHTML = getLocalized('marketplace-description-title1'); 
+		document.getElementById('marketplace-reason-title2').innerHTML = getLocalized('marketplace-reason-title2'); 
+		document.getElementById('marketplace-description-title2').innerHTML = getLocalized('marketplace-description-title2'); 
+		document.getElementById('marketplace-reason-title3').innerHTML = getLocalized('marketplace-reason-title3'); 
+		document.getElementById('marketplace-description-title3').innerHTML = getLocalized('marketplace-description-title3'); 
+		document.getElementById('showcase-title').innerHTML = getLocalized('showcase-title'); 
+		document.getElementById('showcase-subtitle').innerHTML = getLocalized('showcase-subtitle'); 
+		document.getElementById("universal-pre-order-btn").innerHTML = getLocalized("PRE-ORDER NOW");
+
+		document.getElementById("usecase-title").innerHTML = getLocalized("usecase-title");
+		document.getElementById("usecase-description").innerHTML = getLocalized("usecase-description");
+		document.getElementById("usecase-title1").innerHTML = getLocalized("usecase-title1");
+		document.getElementById("usecase-subtitle1").innerHTML = getLocalized("usecase-subtitle1");
+		document.getElementById("usecase-description1").innerHTML = getLocalized("usecase-description1");
+		document.getElementById("usecase-title2").innerHTML = getLocalized("usecase-title2");
+		document.getElementById("usecase-subtitle2").innerHTML = getLocalized("usecase-subtitle2");
+		document.getElementById("usecase-description2").innerHTML = getLocalized("usecase-description2");
+		document.getElementById("usecase-title3").innerHTML = getLocalized("usecase-title3");
+		document.getElementById("usecase-subtitle3").innerHTML = getLocalized("usecase-subtitle3");
+		document.getElementById("usecase-description3").innerHTML = getLocalized("usecase-description3");
+
+		document.getElementById("wheretocontrol-title").innerHTML = getLocalized("wheretocontrol-title");
+		document.getElementById("wheretocontrol-title0").innerHTML = getLocalized("wheretocontrol-title0");
+		document.getElementById("wheretocontrol-description").innerHTML = getLocalized("wheretocontrol-description");
+		document.getElementById("wheretocontrol-title1").innerHTML = getLocalized("wheretocontrol-title1");
+		document.getElementById("wheretocontrol-description1").innerHTML = getLocalized("wheretocontrol-description1");
+		document.getElementById("wheretocontrol-title2").innerHTML = getLocalized("wheretocontrol-title2");
+		document.getElementById("wheretocontrol-description2").innerHTML = getLocalized("wheretocontrol-description2");
+
+		document.getElementById("becomepossible-title").innerHTML = getLocalized("becomepossible-title");
+		document.getElementById("becomepossible-title0").innerHTML = getLocalized("becomepossible-title0");
+		document.getElementById("becomepossible-description").innerHTML = getLocalized("becomepossible-description");
+		document.getElementById("becomepossible-title1").innerHTML = getLocalized("becomepossible-title1");
+		document.getElementById("becomepossible-description1").innerHTML = getLocalized("becomepossible-description1");
+		document.getElementById("becomepossible-title2").innerHTML = getLocalized("becomepossible-title2");
+		document.getElementById("becomepossible-description2").innerHTML = getLocalized("becomepossible-description2");
+
+	</script>
+
+	<!-- JavaScript Libraries -->
+	<script src="website_assets/lib/jquery/jquery.min.js"></script>
+	<script src="website_assets/lib/jquery/jquery-migrate.min.js"></script>
+	<script src="website_assets/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="website_assets/lib/easing/easing.min.js"></script>
+	<script src="website_assets/lib/superfish/hoverIntent.js"></script>
+	<script src="website_assets/lib/superfish/superfish.min.js"></script>
+	<script src="website_assets/lib/wow/wow.min.js"></script>
+	<script src="website_assets/lib/waypoints/waypoints.min.js"></script>
+	<script src="website_assets/lib/counterup/counterup.min.js"></script>
+	<script src="website_assets/lib/owlcarousel/owl.carousel.min.js"></script>
+	<script src="website_assets/lib/isotope/isotope.pkgd.min.js"></script>
+	<script src="website_assets/lib/lightbox/js/lightbox.min.js"></script>
+	<script src="website_assets/lib/touchSwipe/jquery.touchSwipe.min.js"></script>
+
+	<script type="text/javascript">
+
+		function selectLanguageOf(lang) {
+			if (lang != language) {
+				window.localStorage.setItem('lang', lang);
+				window.location.href = location.protocol + '//' + location.host + location.pathname;
+			}
+		}
+
+		function pre_order_button_click(position) {
+			submitTracking("pre-order-button-" + position);
+			// alert(getLocalized("Our pre-order will open on Jul 18, 2022. Please come back again"));
+			window.location.href = "https://igg.me/at/innomati";
+		}
+
+		var url = new URL(window.location.href);
+		var is_order = params["order"] != null && params["order"] == "1";
+		function sendInfo(action) {
+			// , "ip": ip
+			var data = {"filename": "index_data.json", "lang": language, "action": action, "is_order": is_order};
+			var paramsString = [];
+			for (const [key, value] of Object.entries(data)) {
+				paramsString.push(key + "=" + value);
+			}
+			httpGetAsync("https://" + window.location.hostname + "/tracking/write.php" + "?" + paramsString.join("&"), function callback(result) {
+				
+			})
+		}
+		sendInfo("browse");
+
+		function httpGetAsync(theUrl, callback) {
+			var xmlHttp = new XMLHttpRequest();
+			xmlHttp.onreadystatechange = function() { 
+				if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+					callback(xmlHttp.responseText);
+			}
+			xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+			xmlHttp.send(null);
+		}
+
+		function submitTracking(action) {
+			sendInfo(action);
+			fbq('trackCustom', action);
+			gtag('event', action);
+		}
+
+		if (is_order)
+			pre_order_button_click("3");
+
+		(function ($) {
+			"use strict";
+
+			// Preloader
+			$(window).on('load', function () {
+				if ($('#preloader').length) {
+					$('#preloader').delay(100).fadeOut('slow', function () {
+						$(this).remove();
+					});
+				}
+			});
+
+			// Back to top button
+			$(window).scroll(function() {
+				if ($(this).scrollTop() > 100) {
+					$('.back-to-top').fadeIn('slow');
+				} else {
+					$('.back-to-top').fadeOut('slow');
+				}
+			});
+			$('.back-to-top').click(function(){
+				$('html, body').animate({scrollTop : 0},1500, 'easeInOutExpo');
+				return false;
+			});
+
+			// Initiate the wowjs animation library
+			new WOW().init();
+
+			// Initiate superfish on nav menu
+			$('.nav-menu').superfish({
+				animation: {
+					opacity: 'show'
+				},
+				speed: 400
+			});
+
+			// Mobile Navigation
+			if ($('#nav-menu-container').length) {
+				var $mobile_nav = $('#nav-menu-container').clone().prop({
+					id: 'mobile-nav'
+				});
+				$mobile_nav.find('> ul').attr({
+					'class': '',
+					'id': ''
+				});
+				$('body').append($mobile_nav);
+				$('body').prepend('<button type="button" id="mobile-nav-toggle"><i class="fa fa-bars"></i></button>');
+				$('body').append('<div id="mobile-body-overly"></div>');
+				$('#mobile-nav').find('.menu-has-children').prepend('<i class="fa fa-chevron-down"></i>');
+
+				$(document).on('click', '.menu-has-children i', function(e) {
+					$(this).next().toggleClass('menu-item-active');
+					$(this).nextAll('ul').eq(0).slideToggle();
+					// $(this).toggleClass("fa-chevron-up fa-chevron-down");
+				});
+				// $(document).on('click', '#tutorialTitle', function(e) {
+				//   $(this).next().toggleClass('menu-item-active');
+				//   $(this).nextAll('ul').eq(0).slideToggle();
+				// });
+				$(document).on('click', '#languageTitle', function(e) {
+					$(this).next().toggleClass('menu-item-active');
+					$(this).nextAll('ul').eq(0).slideToggle();
+				});
+
+				$(document).on('click', '#mobile-nav-toggle', function(e) {
+					$('body').toggleClass('mobile-nav-active');
+					$('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+					$('#mobile-body-overly').toggle();
+				});
+
+				$(document).click(function(e) {
+					var container = $("#mobile-nav, #mobile-nav-toggle");
+					if (!container.is(e.target) && container.has(e.target).length === 0) {
+						if ($('body').hasClass('mobile-nav-active')) {
+							$('body').removeClass('mobile-nav-active');
+							$('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+							$('#mobile-body-overly').fadeOut();
+						}
+					}
+				});
+			} else if ($("#mobile-nav, #mobile-nav-toggle").length) {
+				$("#mobile-nav, #mobile-nav-toggle").hide();
+			}
+
+			// Header scroll class
+			$(window).scroll(function() {
+				if ($(this).scrollTop() > 100) {
+					$('#header').addClass('header-scrolled');
+				} else {
+					$('#header').removeClass('header-scrolled');
+				}
+			});
+
+			if ($(window).scrollTop() > 100) {
+				$('#header').addClass('header-scrolled');
+			}
+
+			// Smooth scroll for the menu and links with .scrollto classes
+			$('.nav-menu a, #mobile-nav a, .scrollto').on('click', function() {
+				if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+					var target = $(this.hash);
+					if (target.length) {
+						var top_space = 0;
+
+						if ($('#header').length) {
+							top_space = $('#header').outerHeight();
+
+							if (! $('#header').hasClass('header-scrolled')) {
+								top_space = top_space - 20;
+							}
+						}
+
+						$('html, body').animate({
+							scrollTop: target.offset().top - top_space
+						}, 1500, 'easeInOutExpo');
+
+						if ($(this).parents('.nav-menu').length) {
+							$('.nav-menu .menu-active').removeClass('menu-active');
+							$(this).closest('li').addClass('menu-active');
+						}
+
+						if ($('body').hasClass('mobile-nav-active')) {
+							$('body').removeClass('mobile-nav-active');
+							$('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+							$('#mobile-body-overly').fadeOut();
+						}
+						return false;
+					}
+				}
+			});
+
+			// Navigation active state on scroll
+			var nav_sections = $('section');
+			var main_nav = $('.nav-menu, #mobile-nav');
+			var main_nav_height = $('#header').outerHeight();
+
+			$(window).on('scroll', function () {
+				var cur_pos = $(this).scrollTop();
+
+				nav_sections.each(function() {
+					var top = $(this).offset().top - main_nav_height,
+					bottom = top + $(this).outerHeight();
+
+					if (cur_pos >= top && cur_pos <= bottom) {
+						main_nav.find('li').removeClass('menu-active menu-item-active');
+						main_nav.find('a[href="#'+$(this).attr('id')+'"]').parent('li').addClass('menu-active menu-item-active');
+					}
+				});
+			});
+
+			// Intro carousel
+			var introCarousel = $(".carousel");
+			var introCarouselIndicators = $(".carousel-indicators");
+			introCarousel.find(".carousel-inner").children(".carousel-item").each(function(index) {
+				(index === 0) ?
+				introCarouselIndicators.append("<li data-target='#introCarousel' data-slide-to='" + index + "' class='active'></li>") :
+				introCarouselIndicators.append("<li data-target='#introCarousel' data-slide-to='" + index + "'></li>");
+
+				// $(this).css("background-image", "url('" + $(this).children('.carousel-background').children('img').attr('src') +"')");
+				// $(this).children('.carousel-background').remove();
+			});
+
+			$(".carousel").swipe({
+				swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+					if (direction == 'left') $(this).carousel('next');
+					if (direction == 'right') $(this).carousel('prev');
+				},
+				allowPageScroll:"vertical"
+			});
+
+			// jQuery counterUp (used in Facts section)
+			$('[data-toggle="counter-up"]').counterUp({
+				delay: 10,
+				time: 1000
+			});
+
+			// Testimonials carousel (uses the Owl Carousel library)
+			$(".testimonials-carousel").owlCarousel({
+				autoplay: true,
+				dots: true,
+				loop: true,
+				items: 1
+			});
+
+		})(jQuery);
+
+	</script>
+
+</body>
+
+</html>

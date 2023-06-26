@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<script type="text/javascript">if (location.protocol !=='https:') location.replace(`https:${location.href.substring(location.protocol.length)}`);</script>
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Index Tracking</title>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+</head>
+<body>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        } 
+    </style>
+    <input type="text" name="daterange" style="font-size: 48px; width: 550px; margin: 20px; text-align: center;" />
+    <br>
+    <label id="sumup"></label>
+    <br>
+    <label id="results"></label>
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+    </style>
+
+    <script>
+        $(function() {
+            $('input[name="daterange"]').daterangepicker({
+                opens: 'left'
+            }, function(start, end, label) {
+                var startTime = start.format('YYYY-MM-DD') + "T00:00:00.000Z";
+                var endTime = end.format('YYYY-MM-DD') + "T23:59:59.997Z";
+                get_data(startTime, endTime);
+            });
+        });
+
+        function roundToTwo(num) {    
+            return +(Math.round(num + "e+2")  + "e-2");
+        }
+
+        function get_data(startTime = null, endTime = null) {
+            // , "ip": ip
+            var data = {"filename": "index_data.json"};
+            if (startTime != null)
+                data["startTime"] = startTime;
+            if (endTime != null)
+                data["endTime"] = endTime;
+            var paramsString = [];
+            for (const [key, value] of Object.entries(data)) {
+                paramsString.push(key + "=" + value);
+            }
+            httpGetAsync("https://" + window.location.hostname + "/tracking/read.php" + "?" + paramsString.join("&"), function callback(result) {
+                var result_arr = JSON.parse(result);
+                if (result_arr["success"]) {
+                    var data = result_arr["data"];
+                    var text = '<table style="width:100%">';
+                    var paramters = [];
+                    for (var i = 0; i < data.length; i++)
+                        for (const [key, value] of Object.entries(data[i]))
+                            if (!paramters.includes(key))
+                                paramters.push(key);
+                    var header = '<tr>';
+                    for (var i = 0; i < paramters.length; i++)
+                        header += "<th>" + paramters[i] + "</th>";
+                    text += header + "</tr>";
+                    for (var i = 0; i < data.length; i++) {
+                        var detail = '<tr>';
+                        for (var j = 0; j < paramters.length; j++)
+                            detail += "<th>" + data[i][paramters[j]] + "</th>";
+                        text += detail + "</tr>";
+                    }
+                    document.getElementById("results").innerHTML = text + "</table>";
+
+                    var from_browse = 0;
+                    var manually_click_pre_order = 0;
+                    var unique_user = [];
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i]["is_order"] != "true")
+                            from_browse += 1;
+                        if (data[i]["action"] == "pre-order-button-1" || data[i]["action"] == "pre-order-button-2")
+                            manually_click_pre_order += 1;
+                        if (!unique_user.includes(data[i]["ip"]))
+                            unique_user.push(data[i]["ip"]);
+                    }
+                    document.getElementById("sumup").innerHTML = "Number of Data: " + data.length.toString() + "<br>"
+                                                                + "From Browse: " + roundToTwo(100 * from_browse / data.length).toString() + "%" + "<br>" 
+                                                                + "From Pre Order: " + roundToTwo(100 * (1 - from_browse / data.length)).toString() + "%" + "<br>"
+                                                                + "Manually clicked: " + roundToTwo(100 * manually_click_pre_order / unique_user.length).toString() + "%" + "<br>"
+                                                                + "Unique User: " + unique_user.length.toString();
+                } else {
+                    alert(result_arr["error"]["message"]);
+                }
+            })
+        }
+        var today = new Date().toLocaleDateString('zh-Hans-CN').split("/");
+        if (today[1].length == 1)
+            today[1] = "0" + today[1];
+        if (today[2].length == 1)
+            today[2] = "0" + today[2];
+        today = today.join("-");
+        get_data(today + "T00:00:00.000Z", today + "T23:59:59.997Z");
+
+        function httpGetAsync(theUrl, callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() { 
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                    callback(xmlHttp.responseText);
+            }
+            xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+            xmlHttp.send(null);
+        }
+    </script>
+
+</body>
+
+</html>
